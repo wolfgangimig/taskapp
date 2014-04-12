@@ -13,9 +13,9 @@ task.app = task.app || {};
 */
 task.app.BApiDescriptor_Taskapp = {
 	/**
-	 * API serialisation version: 1.0.0.0
+	 * API serialisation version: 1.0.0.1
 	 */
-	VERSION : "1.0.0.0",
+	VERSION : "1.0.0.1",
 	
 	/**
 	 * Internal used API Desciptor.
@@ -24,7 +24,7 @@ task.app.BApiDescriptor_Taskapp = {
 		return new byps.BApiDescriptor(
 			"Taskapp",
 			"task.app",
-			"1.0.0.0",
+			"1.0.0.1",
 			false, // uniqueObjects
 			new task.app.BRegistry_Taskapp()
 		);
@@ -63,10 +63,11 @@ task.app.BClient_Taskapp.prototype = new byps.BClient();
 
 /**
 */
-task.app.TaskInfo = function(id, userName, dueDate, todo) {
+task.app.TaskInfo = function(id, userName, properties, dueDate, todo) {
 	this._typeId = 1660464439;
 	this.id = id || 0;
 	this.userName = userName || "";
+	this.properties = properties || null;
 	this.dueDate = dueDate || null;
 	this.todo = todo || "";
 };
@@ -197,6 +198,11 @@ task.app.BRegistry_Taskapp = function() {
 	
 	this._serializerMap = {
 		
+		// java.util.HashMap<String,String>
+		1252554176 : new byps.BSerializerMap(
+			10 // Element type: String
+		),
+		
 		// java.util.List<task.app.TaskInfo>
 		1182472339 : new byps.BSerializerArray(
 			1660464439, // Element type: task.app.TaskInfo
@@ -280,6 +286,8 @@ task.app.BRegistry_Taskapp = function() {
 				// names of persistent elements
 				"userName":10, // java.lang.String
 				// names of persistent elements
+				"properties":1252554176, // java.util.HashMap<java.lang.String,java.lang.String>
+				// names of persistent elements
 				"dueDate":17, // java.util.Date
 				// names of persistent elements
 				"todo":10 // java.lang.String
@@ -287,6 +295,8 @@ task.app.BRegistry_Taskapp = function() {
 			// checkpoint byps.gen.js.GenRegistry:138
 			// names of inline elements
 			{
+				"properties":1252554176, // java.util.HashMap<java.lang.String,java.lang.String>
+				// names of inline elements
 				"dueDate":17, // java.util.Date
 			},
 			// inlineInstance

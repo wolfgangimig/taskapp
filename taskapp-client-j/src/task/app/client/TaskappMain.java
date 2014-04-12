@@ -1,5 +1,6 @@
 package task.app.client;
 
+import java.util.HashMap;
 import java.util.List;
 
 import task.app.BApiDescriptor_Taskapp;
@@ -57,6 +58,12 @@ public class TaskappMain {
 		t.setUserName(args[1]);
 		t.setTodo(args[2]);
 		t.setDueDate(new java.util.Date(System.currentTimeMillis() + 24*60*60*1000));
+		
+		HashMap<String,String> properties = new HashMap<String,String>();
+		properties.put("INVOICE", "12345");
+		properties.put("CUSTOMER", "67890");
+		t.setProperties(properties);
+		
 		bclient.getTaskService().addTask(t);
 	}
 	
@@ -70,7 +77,8 @@ public class TaskappMain {
 		for (TaskInfo t : tasks) {
 			System.out.println("id=" + t.getId() + 
 					"\tuserName=" + t.getUserName() + 
-					"\ttodo=" + t.getTodo());
+					"\ttodo=" + t.getTodo() +
+					"\tproperties=" + t.getProperties());
 		}
 	}
 }

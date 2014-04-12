@@ -117,6 +117,8 @@ class BResult_19 : public BSerializable {
 
 namespace task { namespace app { 
 
+// Serializer for java.util.HashMap<java.lang.String,java.lang.String>
+void BSerializer_1252554176(BIO& bio, POBJECT& pObj, PSerializable& pObjS, void* pBase);
 // Serializer for java.util.List<task.app.TaskInfo>
 void BSerializer_1182472339(BIO& bio, POBJECT& pObj, PSerializable& pObjS, void* pBase);
 // Serializer for task.app.BRequest_TaskService_addTask

@@ -4,6 +4,18 @@ using namespace ::byps;
 
 // checkpoint byps.gen.cpp.GenApiClass:934
 namespace task { namespace app { 
+void BSerializer_1252554176(BIO& bio, POBJECT& pObj, PSerializable& , void* ) {
+	void* p = pObj.get();
+	if (p) { 
+		::std::map< ::std::wstring , ::std::wstring >& r = * reinterpret_cast< ::std::map< ::std::wstring , ::std::wstring >*>(p);
+		bio & r;
+	} else {
+		pObj = POBJECT(new ::std::map< ::std::wstring , ::std::wstring >());
+	}
+}
+}}
+// checkpoint byps.gen.cpp.GenApiClass:934
+namespace task { namespace app { 
 void BSerializer_1182472339(BIO& bio, POBJECT& pObj, PSerializable& , void* ) {
 	void* p = pObj.get();
 	if (p) { 
@@ -199,9 +211,10 @@ TaskInfo::TaskInfo() {
 	id = 0;
 }
 // checkpoint byps.gen.cpp.GenApiClass:536
-task::app::TaskInfo::TaskInfo(int32_t id, const ::std::wstring& userName, const BDateTime& dueDate, const ::std::wstring& todo)
+task::app::TaskInfo::TaskInfo(int32_t id, const ::std::wstring& userName, const byps::PMapStringString& properties, const BDateTime& dueDate, const ::std::wstring& todo)
 	: id(id)
 	, userName(userName)
+	, properties(properties)
 	, dueDate(dueDate)
 	, todo(todo)
 	{}
@@ -210,6 +223,9 @@ void TaskInfo::setId(int32_t v) {
 }
 void TaskInfo::setUserName(::std::wstring v) {
 	userName = v;
+}
+void TaskInfo::setProperties(byps::PMapStringString v) {
+	properties = v;
 }
 void TaskInfo::setDueDate(BDateTime v) {
 	dueDate = v;
@@ -223,6 +239,9 @@ void task::app::TaskInfo::serialize(BIO& ar, const BVERSION version) {
 	ar & this->id;
 	ar & this->todo;
 	ar & this->userName;
+	if (version >= 100000000000001) {
+		ar & this->properties;
+	}
 }
 }}
 
@@ -314,6 +333,7 @@ void BSerializer_216769899(BIO& bio, POBJECT& , PSerializable& pObjS, void* ){
 
 task::app::BRegistry_Taskapp::BRegistry_Taskapp()
 {
+	registerClass(typeid(::std::map< ::std::wstring , ::std::wstring >), task::app::BSerializer_1252554176, 1252554176);
 	registerClass(typeid(::std::vector< task::app::PTaskInfo >), task::app::BSerializer_1182472339, 1182472339);
 	registerClass(typeid(task::app::BRequest_TaskService_addTask), task::app::BSerializer_1498136965, 1498136965);
 	registerClass(typeid(task::app::BRequest_TaskService_getTasks), task::app::BSerializer_280075325, 280075325);

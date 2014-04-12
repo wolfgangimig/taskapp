@@ -2,6 +2,7 @@ package task.app;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashMap;
 
 public class TaskInfo implements Serializable {
 
@@ -10,6 +11,11 @@ public class TaskInfo implements Serializable {
 	protected int id;
 	
 	protected String userName;
+	
+	/**
+	 * @since 1.0.0.1
+	 */
+	protected HashMap<String,String> properties;
 	
 	protected Date dueDate;
 
@@ -46,6 +52,14 @@ public class TaskInfo implements Serializable {
 
 	public void setTodo(String todo) {
 		this.todo = todo;
+	}
+
+	public HashMap<String, String> getProperties() {
+		return properties;
+	}
+
+	public void setProperties(HashMap<String, String> properties) {
+		this.properties = properties;
 	}
 	
 	

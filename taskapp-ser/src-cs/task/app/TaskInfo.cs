@@ -18,9 +18,10 @@ namespace task.app
 		public TaskInfo() {
 		}		
 		
-		public TaskInfo(int @id, String @userName, DateTime @dueDate, String @todo) {
+		public TaskInfo(int @id, String @userName, Dictionary<String,String> @properties, DateTime @dueDate, String @todo) {
 			this.idValue = @id;
 			this.userNameValue = @userName;
+			this.propertiesValue = @properties;
 			this.dueDateValue = @dueDate;
 			this.todoValue = @todo;
 		}		
@@ -29,6 +30,7 @@ namespace task.app
 		{
 			this.idValue = rhs.idValue;
 			this.userNameValue = rhs.userNameValue;
+			this.propertiesValue = rhs.propertiesValue;
 			this.dueDateValue = rhs.dueDateValue;
 			this.todoValue = rhs.todoValue;
 		}		
@@ -59,6 +61,19 @@ namespace task.app
 			set
 			{
 				this.userNameValue = value;
+			}
+		}
+		
+		
+		public Dictionary<String,String> Properties
+		{
+			get
+			{
+				return propertiesValue;
+			}
+			set
+			{
+				this.propertiesValue = value;
 			}
 		}
 		
@@ -96,6 +111,8 @@ namespace task.app
 		protected int idValue;
 
 		protected String userNameValue;
+
+		protected Dictionary<String,String> propertiesValue;
 
 		protected DateTime dueDateValue;
 
