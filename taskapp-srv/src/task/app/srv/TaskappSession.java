@@ -31,7 +31,7 @@ public class TaskappSession extends HSession {
 		bserver = BServer_Taskapp.createServer(transportFactory);
 		
 		// Add the interfaces you want to implement
-		bserver.addRemote(new TaskServiceImpl(remoteUser));
+		bserver.addRemote(new TaskServiceImpl());
 
 		// Mark session valid
 		setSessionAuthenticated();
