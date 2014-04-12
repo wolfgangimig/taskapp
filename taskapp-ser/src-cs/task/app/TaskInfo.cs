@@ -1,0 +1,143 @@
+﻿//
+// 
+// THIS FILE HAS BEEN GENERATED. DO NOT MODIFY.
+//
+
+using System;
+using System.Collections.Generic;
+using byps;
+
+namespace task.app
+{
+	
+	public class TaskInfo : BSerializable
+	{
+	
+		#region Constructors
+		
+		public TaskInfo() {
+		}		
+		
+		public TaskInfo(int @id, String @userName, Dictionary<String,String> @properties, DateTime @dueDate, String @todo, IList<System.IO.Stream> @attachments) {
+			this.idValue = @id;
+			this.userNameValue = @userName;
+			this.propertiesValue = @properties;
+			this.dueDateValue = @dueDate;
+			this.todoValue = @todo;
+			this.attachmentsValue = @attachments;
+		}		
+		
+		public TaskInfo(TaskInfo rhs)
+		{
+			this.idValue = rhs.idValue;
+			this.userNameValue = rhs.userNameValue;
+			this.propertiesValue = rhs.propertiesValue;
+			this.dueDateValue = rhs.dueDateValue;
+			this.todoValue = rhs.todoValue;
+			this.attachmentsValue = rhs.attachmentsValue;
+		}		
+		
+		#endregion
+		
+		#region Properties
+		
+		public int Id
+		{
+			get
+			{
+				return idValue;
+			}
+			set
+			{
+				this.idValue = value;
+			}
+		}
+		
+		
+		public String UserName
+		{
+			get
+			{
+				return userNameValue;
+			}
+			set
+			{
+				this.userNameValue = value;
+			}
+		}
+		
+		
+		public Dictionary<String,String> Properties
+		{
+			get
+			{
+				return propertiesValue;
+			}
+			set
+			{
+				this.propertiesValue = value;
+			}
+		}
+		
+		
+		public DateTime DueDate
+		{
+			get
+			{
+				return dueDateValue;
+			}
+			set
+			{
+				this.dueDateValue = value;
+			}
+		}
+		
+		
+		public String Todo
+		{
+			get
+			{
+				return todoValue;
+			}
+			set
+			{
+				this.todoValue = value;
+			}
+		}
+		
+		
+		public IList<System.IO.Stream> Attachments
+		{
+			get
+			{
+				return attachmentsValue;
+			}
+			set
+			{
+				this.attachmentsValue = value;
+			}
+		}
+		
+		
+		#endregion
+		
+		#region Fields
+		
+		protected int idValue;
+
+		protected String userNameValue;
+
+		protected Dictionary<String,String> propertiesValue;
+
+		protected DateTime dueDateValue;
+
+		protected String todoValue;
+
+		protected IList<System.IO.Stream> attachmentsValue;
+
+		#endregion
+		
+		
+		public static readonly long serialVersionUID = 1660464439L;		
+	} // end class
+}  // end namespace
