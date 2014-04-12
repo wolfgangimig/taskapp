@@ -21,6 +21,10 @@ namespace byps {
 	typedef ::std::map< ::std::wstring , ::std::wstring > BMapStringString;
 	typedef byps_ptr< BMapStringString > PMapStringString;
 	
+	// java.util.List<java.io.InputStream>
+	typedef ::std::vector< PContentStream > BVectorInputStream;
+	typedef byps_ptr< BVectorInputStream > PVectorInputStream;
+	
 	// java.util.List<java.lang.Object>
 	typedef ::std::vector< PSerializable > BVectorObject;
 	typedef byps_ptr< BVectorObject > PVectorObject;
@@ -68,11 +72,12 @@ class TaskInfo : public BSerializable {
 	protected: byps::PMapStringString properties;
 	protected: BDateTime dueDate;
 	protected: ::std::wstring todo;
+	protected: byps::PVectorInputStream attachments;
 	
 	// checkpoint byps.gen.cpp.GenApiClass:488
 	public: TaskInfo();
 	// checkpoint byps.gen.cpp.GenApiClass:535
-	public: TaskInfo(int32_t id, const ::std::wstring& userName, const byps::PMapStringString& properties, const BDateTime& dueDate, const ::std::wstring& todo);	
+	public: TaskInfo(int32_t id, const ::std::wstring& userName, const byps::PMapStringString& properties, const BDateTime& dueDate, const ::std::wstring& todo, const byps::PVectorInputStream& attachments);	
 	public: virtual BTYPEID BSerializable_getTypeId() { return 1660464439; }
 	
 	public: int32_t getId() { return id; }
@@ -85,6 +90,8 @@ class TaskInfo : public BSerializable {
 	public: void setDueDate(BDateTime v);
 	public: ::std::wstring getTodo() { return todo; }
 	public: void setTodo(::std::wstring v);
+	public: byps::PVectorInputStream getAttachments() { return attachments; }
+	public: void setAttachments(byps::PVectorInputStream v);
 	// checkpoint byps.gen.cpp.GenApiClass:871
 	public: void serialize(BIO& ar, const BVERSION version);
 };

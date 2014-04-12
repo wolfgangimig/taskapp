@@ -1,5 +1,8 @@
 package task.app.srv;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -19,6 +22,28 @@ public class TaskServiceImpl extends BSkeleton_TaskService {
 
 	@Override
 	public void addTask(TaskInfo task) throws RemoteException {
+		
+		// Read streams from client and replace them in TaskInfo object
+		try {
+			List<InputStream> istreams = task.getAttachments();
+			if (istreams!= null) {
+				
+				List<InputStream> nstreams = new ArrayList<InputStream>();
+				task.setAttachments(nstreams);
+				
+				for (InputStream is : istreams) {
+					byte[] buf = new byte[100];
+					int len = is.read(buf);
+					InputStream ns = new ByteArrayInputStream(buf, 0, len);
+					nstreams.add(ns);
+					is.close();
+				}
+			}
+		}
+		catch (IOException e) {
+			throw new RemoteException("Failed to read streams", e);
+		}
+				
 		synchronized(tasksOfAllUsers) {
 			ArrayList<TaskInfo> tasksOfUser = tasksOfAllUsers.get(task.getUserName());
 			if (tasksOfUser == null) {
@@ -50,6 +75,18 @@ public class TaskServiceImpl extends BSkeleton_TaskService {
 			if (tasksOfUser == null) {
 				tasksOfAllUsers.put(this.userName, tasksOfUser = new ArrayList<TaskInfo>()); 
 			}
+			
+			// Move stream position to begin
+			for (TaskInfo task : tasksOfUser) {
+				List<InputStream> streams = task.getAttachments();
+				if (streams != null) {
+					for (InputStream is : task.getAttachments()) {
+						ByteArrayInputStream bs = (ByteArrayInputStream)is;
+						bs.reset();
+					}
+				}
+			}
+			
 			return tasksOfUser;
 		}
 	}

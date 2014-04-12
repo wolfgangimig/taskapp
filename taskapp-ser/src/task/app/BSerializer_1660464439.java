@@ -12,7 +12,7 @@ import byps.*;
 // isEnum=false
 // isFinal=false
 // isInline=false
-// #members=5
+// #members=6
 
 // checkpoint byps.gen.j.GenSerStruct:274
 @SuppressWarnings("all")
@@ -39,6 +39,7 @@ public class BSerializer_1660464439 extends BSerializer {
 		bbuf.putString(obj.todo);
 		bbuf.putString(obj.userName);
 		if (version >= 100000000000001L) {
+			bout.writeObj(obj.attachments, false, task.app.BSerializer_1218831438.instance);
 			bout.writeObj(obj.properties, false, task.app.BSerializer_1252554176.instance);
 		}
 	}
@@ -55,6 +56,7 @@ public class BSerializer_1660464439 extends BSerializer {
 		obj.todo = bbuf.getString();
 		obj.userName = bbuf.getString();
 		if (version >= 100000000000001L) {
+			obj.attachments = (java.util.List<java.io.InputStream>)bin.readObj(false, task.app.BSerializer_1218831438.instance);
 			obj.properties = (java.util.HashMap<java.lang.String,java.lang.String>)bin.readObj(false, task.app.BSerializer_1252554176.instance);
 		}
 		

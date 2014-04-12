@@ -12,7 +12,7 @@ import byps.*;
 // isEnum=false
 // isFinal=false
 // isInline=false
-// #members=5
+// #members=6
 
 // checkpoint byps.gen.j.GenSerStruct:274
 @SuppressWarnings("all")
@@ -36,6 +36,7 @@ public class JSerializer_1660464439 extends JSerializer_Object {
 		bbuf.putInt("id", obj.id);
 		bbuf.putString("todo", obj.todo);
 		bbuf.putString("userName", obj.userName);
+		bout.writeObj("attachments",obj.attachments, false, task.app.JSerializer_1218831438.instance);
 		bout.writeObj("properties",obj.properties, false, task.app.JSerializer_1252554176.instance);
 	}
 	
@@ -48,6 +49,7 @@ public class JSerializer_1660464439 extends JSerializer_Object {
 		obj.id = js.getInt("id");
 		obj.todo = js.getString("todo");
 		obj.userName = js.getString("userName");
+		obj.attachments = (java.util.List<java.io.InputStream>)bin.readObj("attachments", false, task.app.JSerializer_1218831438.instance);
 		obj.properties = (java.util.HashMap<java.lang.String,java.lang.String>)bin.readObj("properties", false, task.app.JSerializer_1252554176.instance);
 		
 		return obj;

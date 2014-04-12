@@ -14,6 +14,7 @@ namespace task.app
 			new BRegisteredSerializer(216769899, "task.app.BSerializer_216769899", task.app.BSerializer_216769899.instance),
 			new BRegisteredSerializer(280075325, "task.app.BSerializer_280075325", task.app.BSerializer_280075325.instance),
 			new BRegisteredSerializer(1182472339, "task.app.BSerializer_1182472339", task.app.BSerializer_1182472339.instance),
+			new BRegisteredSerializer(1218831438, "task.app.BSerializer_1218831438", task.app.BSerializer_1218831438.instance),
 			new BRegisteredSerializer(1252554176, "task.app.BSerializer_1252554176", task.app.BSerializer_1252554176.instance),
 			new BRegisteredSerializer(1265487020, "task.app.BSerializer_1265487020", task.app.BSerializer_1265487020.instance),
 			new BRegisteredSerializer(1498136965, "task.app.BSerializer_1498136965", task.app.BSerializer_1498136965.instance),

@@ -63,13 +63,14 @@ task.app.BClient_Taskapp.prototype = new byps.BClient();
 
 /**
 */
-task.app.TaskInfo = function(id, userName, properties, dueDate, todo) {
+task.app.TaskInfo = function(id, userName, properties, dueDate, todo, attachments) {
 	this._typeId = 1660464439;
 	this.id = id || 0;
 	this.userName = userName || "";
 	this.properties = properties || null;
 	this.dueDate = dueDate || null;
 	this.todo = todo || "";
+	this.attachments = attachments || null;
 };
 
 
@@ -203,6 +204,12 @@ task.app.BRegistry_Taskapp = function() {
 			10 // Element type: String
 		),
 		
+		// java.util.List<java.io.InputStream>
+		1218831438 : new byps.BSerializerArray(
+			15, // Element type: java.io.InputStream
+			1
+		),
+		
 		// java.util.List<task.app.TaskInfo>
 		1182472339 : new byps.BSerializerArray(
 			1660464439, // Element type: task.app.TaskInfo
@@ -290,7 +297,9 @@ task.app.BRegistry_Taskapp = function() {
 				// names of persistent elements
 				"dueDate":17, // java.util.Date
 				// names of persistent elements
-				"todo":10 // java.lang.String
+				"todo":10, // java.lang.String
+				// names of persistent elements
+				"attachments":1218831438 // java.util.List<java.io.InputStream>
 			},
 			// checkpoint byps.gen.js.GenRegistry:138
 			// names of inline elements
@@ -298,6 +307,8 @@ task.app.BRegistry_Taskapp = function() {
 				"properties":1252554176, // java.util.HashMap<java.lang.String,java.lang.String>
 				// names of inline elements
 				"dueDate":17, // java.util.Date
+				// names of inline elements
+				"attachments":1218831438 // java.util.List<java.io.InputStream>
 			},
 			// inlineInstance
 			false

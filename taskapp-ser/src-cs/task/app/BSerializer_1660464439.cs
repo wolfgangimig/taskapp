@@ -37,6 +37,8 @@ namespace task.app
 			bbuf.putString(obj.UserName);
 			if (version >= 100000000000001L) {
 				// checkpoint byps.gen.cs.PrintContext:494
+				bout.writeObj(obj.Attachments, false, task.app.BSerializer_1218831438.instance);
+				// checkpoint byps.gen.cs.PrintContext:494
 				bout.writeObj(obj.Properties, false, task.app.BSerializer_1252554176.instance);
 			}
 		}
@@ -56,6 +58,8 @@ namespace task.app
 			// checkpoint byps.gen.cs.PrintContext:449
 			obj.UserName = bbuf.getString();
 			if (version >= 100000000000001L) {
+				// checkpoint byps.gen.cs.PrintContext:449
+				obj.Attachments = (IList<System.IO.Stream>)bin.readObj(false, null);
 				// checkpoint byps.gen.cs.PrintContext:449
 				obj.Properties = (Dictionary<String,String>)bin.readObj(false, null);
 			}
