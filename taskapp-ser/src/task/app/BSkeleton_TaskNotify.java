@@ -19,13 +19,13 @@ public class BSkeleton_TaskNotify extends BSkeleton implements TaskNotifyAsync {
 	public final static long serialVersionUID = 265418285L;
 	
 	// checkpoint byps.gen.j.PrintContext:365
-	public int receiveTasks(java.util.ArrayList<TaskInfo> tasks) throws RemoteException {
+	public int receiveTask(TaskInfo task) throws RemoteException {
 		throw new BException(BExceptionC.UNSUPPORTED_METHOD, "");
 	}
 	// checkpoint byps.gen.j.PrintContext:409
-	public void receiveTasks(java.util.ArrayList<TaskInfo> tasks, final BAsyncResult<Integer> asyncResult) {
+	public void receiveTask(TaskInfo task, final BAsyncResult<Integer> asyncResult) {
 		try {
-			int ret = receiveTasks(tasks);
+			int ret = receiveTask(task);
 			asyncResult.setAsyncResult(ret, null);
 		} catch (Throwable e) {
 			asyncResult.setAsyncResult(null, e);

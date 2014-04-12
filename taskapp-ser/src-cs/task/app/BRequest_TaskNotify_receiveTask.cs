@@ -10,7 +10,7 @@ using byps;
 namespace task.app
 {
 	
-	public sealed class BRequest_TaskNotify_receiveTasks : BMethodRequest, BSerializable
+	public sealed class BRequest_TaskNotify_receiveTask : BMethodRequest, BSerializable
 	{
 	
 		#region Execute
@@ -22,7 +22,7 @@ namespace task.app
 			try {
 				TaskNotify __byps__remoteT = (TaskNotify)__byps__remote;				
 				BAsyncResultSendMethod<int> __byps__outerResult = new BAsyncResultSendMethod<int>(__byps__asyncResult, new BResult_5());				
-				__byps__remoteT.ReceiveTasks(tasksValue, BAsyncResultHelper.ToDelegate(__byps__outerResult));
+				__byps__remoteT.ReceiveTask(taskValue, BAsyncResultHelper.ToDelegate(__byps__outerResult));
 			} catch (Exception e) {
 				__byps__asyncResult.setAsyncResult(0, e);
 			}
@@ -32,11 +32,11 @@ namespace task.app
 		
 		#region Fields
 		
-		internal List<TaskInfo> tasksValue;
+		internal TaskInfo taskValue;
 
 		#endregion
 		
 		
-		public static readonly long serialVersionUID = 2130815904L;		
+		public static readonly long serialVersionUID = 484377997L;		
 	} // end class
 }  // end namespace

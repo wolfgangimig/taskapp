@@ -59,10 +59,6 @@ namespace task {
 		class TaskService; 
 		typedef byps_ptr< TaskService > PTaskService; 
 		
-		// java.util.ArrayList<task.app.TaskInfo>
-		typedef ::std::vector< task::app::PTaskInfo > BVectorTaskInfo;
-		typedef byps_ptr< BVectorTaskInfo > PVectorTaskInfo;
-		
 		// java.util.List<task.app.TaskInfo>
 		typedef ::std::vector< task::app::PTaskInfo > BVectorTaskInfo;
 		typedef byps_ptr< BVectorTaskInfo > PVectorTaskInfo;
@@ -119,8 +115,8 @@ using namespace ::byps;
 
 class TaskNotify : public virtual BRemote {
 	
-	public: virtual int32_t receiveTasks(const PVectorTaskInfo& tasks)  = 0;
-	public: virtual void receiveTasks(const PVectorTaskInfo& tasks, ::std::function< void (int32_t, BException ex) > asyncResult)  = 0;
+	public: virtual int32_t receiveTask(const PTaskInfo& task)  = 0;
+	public: virtual void receiveTask(const PTaskInfo& task, ::std::function< void (int32_t, BException ex) > asyncResult)  = 0;
 	
 	
 };
@@ -142,8 +138,8 @@ class BSkeleton_TaskNotify : public BSkeleton, public virtual TaskNotify {
 	
 	public: virtual BTYPEID BSerializable_getTypeId() { return 265418285; }
 	
-	public: virtual int32_t receiveTasks(const PVectorTaskInfo& tasks) ;
-	public: virtual void receiveTasks(const PVectorTaskInfo& tasks, ::std::function< void (int32_t, BException ex) > asyncResult) ;
+	public: virtual int32_t receiveTask(const PTaskInfo& task) ;
+	public: virtual void receiveTask(const PTaskInfo& task, ::std::function< void (int32_t, BException ex) > asyncResult) ;
 	
 	
 };
@@ -165,8 +161,8 @@ class BStub_TaskNotify : public BStub, public virtual TaskNotify {
 	
 	public: virtual BTYPEID BSerializable_getTypeId() { return 265418285; }
 	
-	public: virtual int32_t receiveTasks(const PVectorTaskInfo& tasks) ;
-	public: virtual void receiveTasks(const PVectorTaskInfo& tasks, ::std::function< void (int32_t, BException ex) > asyncResult) ;
+	public: virtual int32_t receiveTask(const PTaskInfo& task) ;
+	public: virtual void receiveTask(const PTaskInfo& task, ::std::function< void (int32_t, BException ex) > asyncResult) ;
 	
 };
 }}

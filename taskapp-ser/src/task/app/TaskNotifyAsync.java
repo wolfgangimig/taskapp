@@ -13,9 +13,9 @@ public interface TaskNotifyAsync extends BRemote,
 	/**
 	*/
 	// checkpoint byps.gen.j.PrintContext:365
-	public int receiveTasks(java.util.ArrayList<TaskInfo> tasks) throws RemoteException;
+	public int receiveTask(TaskInfo task) throws RemoteException;
 	// checkpoint byps.gen.j.PrintContext:409
-	public void receiveTasks(java.util.ArrayList<TaskInfo> tasks, final BAsyncResult<Integer> asyncResult) ;
+	public void receiveTask(TaskInfo task, final BAsyncResult<Integer> asyncResult) ;
 	
 	
 }

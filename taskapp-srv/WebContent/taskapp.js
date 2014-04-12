@@ -118,15 +118,15 @@ task.app.BSkeleton_TaskNotify = function() {
 // checkpoint byps.gen.js.PrintContext:133
 /**
 */
-task.app.BSkeleton_TaskNotify.prototype.receiveTasks = function(tasks) /* returns int , throws BException, InterruptedException*/  {
+task.app.BSkeleton_TaskNotify.prototype.receiveTask = function(task) /* returns int , throws BException, InterruptedException*/  {
 	byps.throwUNSUPPORTED("");
 };
 // checkpoint byps.gen.js.PrintContext:133
 /**
 */
-task.app.BSkeleton_TaskNotify.prototype.async_receiveTasks = function(tasks, __byps__asyncResult){
+task.app.BSkeleton_TaskNotify.prototype.async_receiveTask = function(task, __byps__asyncResult){
 	try {
-		var __byps__ret = this.receiveTasks(tasks);
+		var __byps__ret = this.receiveTask(task);
 		__byps__asyncResult(__byps__ret, null);
 	} catch (e) {
 		__byps__asyncResult(null, e);
@@ -157,9 +157,9 @@ task.app.BStub_TaskNotify = function(transport) {
 // checkpoint byps.gen.js.PrintContext:133
 /**
 */
-task.app.BStub_TaskNotify.prototype.receiveTasks = function(tasks, __byps__asyncResult) {
+task.app.BStub_TaskNotify.prototype.receiveTask = function(task, __byps__asyncResult) {
 	// checkpoint byps.gen.js.GenRemoteStub:40
-	var req =  { _typeId : 2130815904, tasks : tasks };
+	var req =  { _typeId : 484377997, task : task };
 	var ret = this.transport.sendMethod(req, __byps__asyncResult);
 	return ret;
 };
@@ -219,12 +219,12 @@ task.app.BServer_Taskapp = function(transport) {
 	this._methodMap = {
 		
 		// Remote Interface TaskNotify			
-			// Method receiveTasks
-			2130815904 : [ // _typeId of request class
+			// Method receiveTask
+			484377997 : [ // _typeId of request class
 				265418285, // _typeId of remote interface
 				195526335, // _typeId of result class
 				function(remote, methodObj, methodResult) {
-					remote.async_receiveTasks(methodObj.tasks, methodResult);
+					remote.async_receiveTask(methodObj.task, methodResult);
 				}
 			],
 		
@@ -272,12 +272,6 @@ task.app.BRegistry_Taskapp = function() {
 	
 	this._serializerMap = {
 		
-		// java.util.ArrayList<task.app.TaskInfo>
-		475933318 : new byps.BSerializerArray(
-			1660464439, // Element type: task.app.TaskInfo
-			1
-		),
-		
 		// java.util.HashMap<String,String>
 		1252554176 : new byps.BSerializerMap(
 			10 // Element type: String
@@ -295,18 +289,15 @@ task.app.BRegistry_Taskapp = function() {
 			1
 		),
 		
-		// task.app.BRequest_TaskNotify_receiveTasks
-		2130815904 : new byps.BSerializer(
+		// task.app.BRequest_TaskNotify_receiveTask
+		484377997 : new byps.BSerializer(
 			// checkpoint byps.gen.js.GenRegistry:138
 			// names of persistent elements
 			{
-				"tasks":475933318 // java.util.ArrayList<task.app.TaskInfo>
+				"task":1660464439 // task.app.TaskInfo
 			},
 			// checkpoint byps.gen.js.GenRegistry:138
-			// names of inline elements
-			{
-				"tasks":475933318 // java.util.ArrayList<task.app.TaskInfo>
-			},
+			null,
 			// inlineInstance
 			false
 		),

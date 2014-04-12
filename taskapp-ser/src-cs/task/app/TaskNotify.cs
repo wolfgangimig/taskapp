@@ -8,8 +8,8 @@ namespace task.app
 	// checkpoint byps.gen.cs.GenRemoteClass:93
 	public interface TaskNotify : BRemote {
 	
-		int ReceiveTasks(List<TaskInfo> tasks);
-		void ReceiveTasks(List<TaskInfo> tasks, BAsyncResult<int> asyncResult) ;
+		int ReceiveTask(TaskInfo task);
+		void ReceiveTask(TaskInfo task, BAsyncResult<int> asyncResult) ;
 		
 		
 	}

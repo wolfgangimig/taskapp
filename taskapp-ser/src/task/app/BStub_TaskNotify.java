@@ -18,17 +18,17 @@ public class BStub_TaskNotify extends BStub implements TaskNotifyAsync, java.io.
 	}
 	
 	// checkpoint byps.gen.j.PrintContext:365
-	public int receiveTasks(java.util.ArrayList<TaskInfo> tasks) throws RemoteException {
+	public int receiveTask(TaskInfo task) throws RemoteException {
 		// checkpoint byps.gen.j.GenRemoteStub:46
 		final BSyncResult<Integer> asyncResult = new BSyncResult<Integer>();		
-		receiveTasks(tasks, asyncResult);
+		receiveTask(task, asyncResult);
 		return asyncResult.getResult();		
 	}
 	// checkpoint byps.gen.j.PrintContext:409
-	public void receiveTasks(java.util.ArrayList<TaskInfo> tasks, final BAsyncResult<Integer> asyncResult) {
+	public void receiveTask(TaskInfo task, final BAsyncResult<Integer> asyncResult) {
 		// checkpoint byps.gen.j.GenRemoteStub:113
-		BRequest_TaskNotify_receiveTasks req = new BRequest_TaskNotify_receiveTasks();		
-		req.tasks = tasks;
+		BRequest_TaskNotify_receiveTask req = new BRequest_TaskNotify_receiveTask();		
+		req.task = task;
 		transport.sendMethod(req, asyncResult);
 	}
 	

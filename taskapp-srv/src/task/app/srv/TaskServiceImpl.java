@@ -7,16 +7,21 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import task.app.BClient_Taskapp;
 import task.app.BSkeleton_TaskService;
 import task.app.TaskInfo;
 import byps.RemoteException;
+import byps.http.HSession;
 
 public class TaskServiceImpl extends BSkeleton_TaskService {
 	
 	private String userName;
 	private static HashMap<String, ArrayList<TaskInfo>> tasksOfAllUsers = new HashMap<String, ArrayList<TaskInfo>>();
 	
-	public TaskServiceImpl() {
+	private HSession session;
+	
+	public TaskServiceImpl(HSession session) {
+		this.session = session;
 		this.userName = "Fritz"; 
 	}
 
@@ -53,6 +58,8 @@ public class TaskServiceImpl extends BSkeleton_TaskService {
 		}
 		
 		// Notify client 
+		BClient_Taskapp bclient = (BClient_Taskapp)session.getClientR();
+		bclient.getTaskNotify().receiveTask(task);
 		
 	}
 

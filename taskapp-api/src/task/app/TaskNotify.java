@@ -1,7 +1,5 @@
 package task.app;
 
-import java.util.ArrayList;
-
 import byps.BRemote;
 import byps.RemoteException;
 
@@ -11,6 +9,6 @@ import byps.RemoteException;
  */
 public interface TaskNotify extends BRemote {
 
-	public int receiveTasks(ArrayList<TaskInfo> tasks) throws RemoteException;
+	public int receiveTask(TaskInfo task) throws RemoteException;
 	
 }

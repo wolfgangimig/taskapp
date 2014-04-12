@@ -17,14 +17,14 @@ namespace task.app
 		
 		public readonly static long serialVersionUID = 265418285L;
 		
-		public virtual int ReceiveTasks(List<TaskInfo> tasks) {
+		public virtual int ReceiveTask(TaskInfo task) {
 			throw new BException(BExceptionC.UNSUPPORTED_METHOD, "");
 		}
-		public virtual void ReceiveTasks(List<TaskInfo> tasks, BAsyncResult<int> asyncResult) {
+		public virtual void ReceiveTask(TaskInfo task, BAsyncResult<int> asyncResult) {
 			int __byps__ret = default(int);
 			Exception __byps__ex = null;
 			try {
-				__byps__ret = ReceiveTasks(tasks);
+				__byps__ret = ReceiveTask(task);
 			}
 			catch (Exception e) { __byps__ex = e; }
 			asyncResult(__byps__ret, __byps__ex);

@@ -11,11 +11,11 @@ import java.io.Serializable;
 /**
 */
 @SuppressWarnings("all")
-public final class BRequest_TaskNotify_receiveTasks extends BMethodRequest implements Serializable {
+public final class BRequest_TaskNotify_receiveTask extends BMethodRequest implements Serializable {
 
-	public java.util.ArrayList<TaskInfo> tasks;
+	public TaskInfo task;
 	
-	public final static long serialVersionUID = 2130815904L;
+	public final static long serialVersionUID = 484377997L;
 	
 	public int getRemoteId() { return 265418285; }
 	
@@ -23,7 +23,7 @@ public final class BRequest_TaskNotify_receiveTasks extends BMethodRequest imple
 		try {
 			final TaskNotifyAsync __byps__remoteT = (TaskNotifyAsync)__byps__remote;			
 			BAsyncResultSendMethod<Integer> __byps__outerResult = new BAsyncResultSendMethod<Integer>(__byps__asyncResult, new BResult_5());			
-			__byps__remoteT.receiveTasks(tasks, __byps__outerResult);
+			__byps__remoteT.receiveTask(task, __byps__outerResult);
 		} catch (Throwable e) {
 			__byps__asyncResult.setAsyncResult(null, e);
 		}
@@ -31,8 +31,8 @@ public final class BRequest_TaskNotify_receiveTasks extends BMethodRequest imple
 	
 	public String toString() {
 		StringBuilder s = new StringBuilder();
-		s.append("[TaskNotify.receiveTasks(");
-		s.append(tasks);
+		s.append("[TaskNotify.receiveTask(");
+		s.append(task);
 		s.append(")]");
 		return s.toString();
 	}

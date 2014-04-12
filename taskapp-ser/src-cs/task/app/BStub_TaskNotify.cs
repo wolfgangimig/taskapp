@@ -12,14 +12,14 @@ namespace task.app
 		public BStub_TaskNotify(BTransport transport)
 			: base(transport) {}			
 		
-		public virtual int ReceiveTasks(List<TaskInfo> tasks) {
+		public virtual int ReceiveTask(TaskInfo task) {
 			BSyncResult<int> asyncResult = new BSyncResult<int>();			
-			ReceiveTasks(tasks, BAsyncResultHelper.ToDelegate<int>(asyncResult));
+			ReceiveTask(task, BAsyncResultHelper.ToDelegate<int>(asyncResult));
 			return asyncResult.GetResult();			
 		}
-		public virtual void ReceiveTasks(List<TaskInfo> tasks, BAsyncResult<int> asyncResult) {
-			BRequest_TaskNotify_receiveTasks req = new BRequest_TaskNotify_receiveTasks();			
-			req.tasksValue = tasks;
+		public virtual void ReceiveTask(TaskInfo task, BAsyncResult<int> asyncResult) {
+			BRequest_TaskNotify_receiveTask req = new BRequest_TaskNotify_receiveTask();			
+			req.taskValue = task;
 			transport.sendMethod(req, asyncResult);
 		}
 		
