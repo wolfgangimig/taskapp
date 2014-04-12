@@ -17,18 +17,28 @@ public class BClient_Taskapp extends BClient {
 		return new BClient_Taskapp(transport);
 	}
 	
+	public BClient_Taskapp addRemote(BSkeleton_TaskNotify remoteSkeleton) throws BException {
+		if (serverR == null) throw new BException(BExceptionC.NO_REVERSE_CONNECTIONS, "No reverse connections.");
+		serverR.server.addRemote(265418285, remoteSkeleton);
+		return this;
+	}
+	
 	public BClient_Taskapp addRemote(BSkeleton_TaskService remoteSkeleton) throws BException {
 		if (serverR == null) throw new BException(BExceptionC.NO_REVERSE_CONNECTIONS, "No reverse connections.");
 		serverR.server.addRemote(216769899, remoteSkeleton);
 		return this;
 	}
 	
+	public TaskNotifyAsync getTaskNotify() {
+		return taskNotify;
+	}
 	public TaskServiceAsync getTaskService() {
 		return taskService;
 	}
 	
 	@Override
 	public BRemote getStub(int remoteId) {
+		if (remoteId == 265418285) return taskNotify;
 		if (remoteId == 216769899) return taskService;
 		return null;
 	}
@@ -48,9 +58,11 @@ public class BClient_Taskapp extends BClient {
 		initStubs(transport);
 	}
 	
+	protected TaskNotifyAsync taskNotify;
 	protected TaskServiceAsync taskService;
 	
 	private void initStubs(BTransport transport) {
+		taskNotify = new BStub_TaskNotify(transport);
 		taskService = new BStub_TaskService(transport);
 	}
 	

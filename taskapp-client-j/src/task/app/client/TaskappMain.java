@@ -28,6 +28,8 @@ public class TaskappMain {
 		BClient_Taskapp bclient = createClient(url);
 		
 		try {
+			bclient.addRemote(new TaskNotifyImpl());
+			
 			bclient.start();
 			System.out.println("connected, targetId=" + bclient.getTransport().getTargetId());
 

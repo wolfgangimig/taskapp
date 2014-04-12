@@ -4,6 +4,18 @@ using namespace ::byps;
 
 // checkpoint byps.gen.cpp.GenApiClass:934
 namespace task { namespace app { 
+void BSerializer_475933318(BIO& bio, POBJECT& pObj, PSerializable& , void* ) {
+	void* p = pObj.get();
+	if (p) { 
+		::std::vector< task::app::PTaskInfo >& r = * reinterpret_cast< ::std::vector< task::app::PTaskInfo >*>(p);
+		bio & r;
+	} else {
+		pObj = POBJECT(new ::std::vector< task::app::PTaskInfo >());
+	}
+}
+}}
+// checkpoint byps.gen.cpp.GenApiClass:934
+namespace task { namespace app { 
 void BSerializer_1252554176(BIO& bio, POBJECT& pObj, PSerializable& , void* ) {
 	void* p = pObj.get();
 	if (p) { 
@@ -35,6 +47,50 @@ void BSerializer_1182472339(BIO& bio, POBJECT& pObj, PSerializable& , void* ) {
 		bio & r;
 	} else {
 		pObj = POBJECT(new ::std::vector< task::app::PTaskInfo >());
+	}
+}
+}}
+namespace task { namespace app { 
+
+//-------------------------------------------------
+// Implementation of class BRequest_TaskNotify_receiveTasks
+// Generated from class byps.gen.cpp.GenApiClass
+
+// checkpoint byps.gen.cpp.GenApiClass:489
+BRequest_TaskNotify_receiveTasks::BRequest_TaskNotify_receiveTasks() : BMethodRequest(265418285) {
+}
+// checkpoint byps.gen.cpp.GenApiClass:536
+task::app::BRequest_TaskNotify_receiveTasks::BRequest_TaskNotify_receiveTasks(const PVectorTaskInfo& tasks)
+	: BMethodRequest(265418285) 
+	, tasks(tasks)
+	{}
+// checkpoint byps.gen.cpp.GenApiClass:877
+void task::app::BRequest_TaskNotify_receiveTasks::serialize(BIO& ar, const BVERSION version) {
+	ar & this->tasks;
+}
+void task::app::BRequest_TaskNotify_receiveTasks::execute(PRemote __byps__remote, PAsyncResult __byps__asyncResult) {
+	PTaskNotify __byps__remoteT = byps_ptr_cast<TaskNotify>(__byps__remote);
+	__byps__remoteT->receiveTasks(tasks, [__byps__asyncResult](int32_t __byps__result, BException __byps__ex) {
+		if (__byps__ex) {
+			__byps__asyncResult->setAsyncResult(BVariant(__byps__ex));
+		}
+		else {
+			PSerializable __byps__methodResult(new BResult_5(__byps__result));
+			__byps__asyncResult->setAsyncResult(BVariant(__byps__methodResult));
+		}
+	});
+}
+}}
+
+// checkpoint byps.gen.cpp.GenApiClass:934
+namespace task { namespace app { 
+void BSerializer_2130815904(BIO& bio, POBJECT& , PSerializable& pObjS, void* pBase) {
+	BSerializable* p = pBase ? reinterpret_cast<BSerializable*>(pBase) : pObjS.get();
+	if (p) { 
+		task::app::BRequest_TaskNotify_receiveTasks& r = * dynamic_cast< task::app::BRequest_TaskNotify_receiveTasks*>(p);
+		bio & r;
+	} else {
+		pObjS = PSerializable(new task::app::BRequest_TaskNotify_receiveTasks());
 	}
 }
 }}
@@ -215,6 +271,30 @@ void BSerializer_1766349022(BIO& bio, POBJECT& , PSerializable& pObjS, void* pBa
 namespace task { namespace app { 
 
 //-------------------------------------------------
+// Implementation of class BResult_5
+// Generated from class byps.gen.cpp.GenApiClass
+
+// checkpoint byps.gen.cpp.GenApiClass:877
+void task::app::BResult_5::serialize(BIO& ar, const BVERSION version) {
+	ar & this->result;
+}
+}}
+
+// checkpoint byps.gen.cpp.GenApiClass:934
+namespace task { namespace app { 
+void BSerializer_195526335(BIO& bio, POBJECT& , PSerializable& pObjS, void* pBase) {
+	BSerializable* p = pBase ? reinterpret_cast<BSerializable*>(pBase) : pObjS.get();
+	if (p) { 
+		task::app::BResult_5& r = * dynamic_cast< task::app::BResult_5*>(p);
+		bio & r;
+	} else {
+		pObjS = PSerializable(new task::app::BResult_5());
+	}
+}
+}}
+namespace task { namespace app { 
+
+//-------------------------------------------------
 // Implementation of class TaskInfo
 // Generated from class byps.gen.cpp.GenApiClass
 
@@ -274,6 +354,64 @@ void BSerializer_1660464439(BIO& bio, POBJECT& , PSerializable& pObjS, void* pBa
 	}
 }
 }}
+
+namespace task { namespace app { 
+
+int32_t BSkeleton_TaskNotify::receiveTasks(const PVectorTaskInfo& tasks)  {
+	throw BException(BExceptionC::UNSUPPORTED_METHOD, L"");
+}
+void BSkeleton_TaskNotify::receiveTasks(const PVectorTaskInfo& tasks, ::std::function< void (int32_t, BException ex) > asyncResult)  {
+	int32_t __byps__ret = int32_t();
+	try {
+		__byps__ret = receiveTasks(tasks);
+		asyncResult(__byps__ret, BException());
+	} catch (const std::exception& __byps__ex) {
+		asyncResult(__byps__ret, __byps__ex);
+	}
+}
+}}
+
+
+
+namespace task { namespace app { 
+BStub_TaskNotify::BStub_TaskNotify(PTransport transport) 
+	: BStub(transport) {}
+}}
+
+namespace task { namespace app { 
+int32_t BStub_TaskNotify::receiveTasks(const PVectorTaskInfo& tasks)  {
+	BSyncResultT< int32_t > syncResult;	
+	receiveTasks(tasks, [&syncResult](int32_t v, BException ex) {
+		syncResult.setAsyncResult(v, ex);
+	});
+	return syncResult.getResult();
+}
+void BStub_TaskNotify::receiveTasks(const PVectorTaskInfo& tasks, ::std::function< void (int32_t, BException ex) > asyncResult)  {
+	PMethodRequest req(new BRequest_TaskNotify_receiveTasks(tasks));
+	PAsyncResult outerResult( new BAsyncResultReceiveMethodL< int32_t, BResult_5 >(asyncResult) );
+	transport->sendMethod(req, outerResult);
+}
+}}
+
+// checkpoint byps.gen.cpp.GenRemoteStub:224
+namespace task { namespace app { 
+void BSerializer_265418285(BIO& bio, POBJECT& , PSerializable& pObjS, void* ){
+	BSerializable* p = pObjS.get();
+	if (bio.is_loading) {
+		if (p) return;
+		BTargetId targetId;
+		bio & targetId;
+		PTransport transport(new BTransport(*bio.transport, targetId));
+		pObjS = PSerializable(new task::app::BStub_TaskNotify(transport));
+	}
+	else {
+		BRemote* r = dynamic_cast<BRemote*>(p);
+		BTargetId targetId = r->BRemote_getTargetId();
+		bio & targetId;
+	}
+}
+}}
+
 
 
 namespace task { namespace app { 
@@ -350,14 +488,18 @@ void BSerializer_216769899(BIO& bio, POBJECT& , PSerializable& pObjS, void* ){
 
 task::app::BRegistry_Taskapp::BRegistry_Taskapp()
 {
+	registerClass(typeid(::std::vector< task::app::PTaskInfo >), task::app::BSerializer_475933318, 475933318);
 	registerClass(typeid(::std::map< ::std::wstring , ::std::wstring >), task::app::BSerializer_1252554176, 1252554176);
 	registerClass(typeid(::std::vector< PContentStream >), task::app::BSerializer_1218831438, 1218831438);
 	registerClass(typeid(::std::vector< task::app::PTaskInfo >), task::app::BSerializer_1182472339, 1182472339);
+	registerClass(typeid(task::app::BRequest_TaskNotify_receiveTasks), task::app::BSerializer_2130815904, 2130815904);
 	registerClass(typeid(task::app::BRequest_TaskService_addTask), task::app::BSerializer_1498136965, 1498136965);
 	registerClass(typeid(task::app::BRequest_TaskService_getTasks), task::app::BSerializer_280075325, 280075325);
 	registerClass(typeid(task::app::BRequest_TaskService_removeTask), task::app::BSerializer_1265487020, 1265487020);
 	registerClass(typeid(task::app::BResult_1182472339), task::app::BSerializer_2101800006, 2101800006);
 	registerClass(typeid(task::app::BResult_19), task::app::BSerializer_1766349022, 1766349022);
+	registerClass(typeid(task::app::BResult_5), task::app::BSerializer_195526335, 195526335);
+	registerClass(typeid(task::app::BStub_TaskNotify), task::app::BSerializer_265418285, 265418285);
 	registerClass(typeid(task::app::BStub_TaskService), task::app::BSerializer_216769899, 216769899);
 	registerClass(typeid(task::app::TaskInfo), task::app::BSerializer_1660464439, 1660464439);
 }
@@ -383,6 +525,11 @@ PClient_Taskapp BClient_Taskapp::createClient(PTransportFactory transportFactory
 PClient_Taskapp BClient_Taskapp::createClientR(PTransport transport) {
 	return PClient_Taskapp(new BClient_Taskapp(transport));
 }
+void BClient_Taskapp::addRemote(PSkeleton_TaskNotify remoteSkeleton) {
+	if (!serverR) throw BException(BExceptionC::NO_REVERSE_CONNECTIONS, L"No reverse connections.");
+	serverR->server->addRemote(265418285, remoteSkeleton);
+}
+
 BClient_Taskapp::BClient_Taskapp(PTransportFactory transportFactory) 
 	: BClient(
 		transportFactory->createClientTransport(), 
@@ -398,14 +545,19 @@ BClient_Taskapp::BClient_Taskapp(PTransport transport)
 	{
 	initStubs(transport);
 }
+BINLINE task::app::PTaskNotify BClient_Taskapp::getTaskNotify() {
+	return taskNotify;
+}
 BINLINE task::app::PTaskService BClient_Taskapp::getTaskService() {
 	return taskService;
 }
 PRemote BClient_Taskapp::getStub(int remoteId) {
+	if (remoteId == 265418285) return taskNotify;
 	if (remoteId == 216769899) return taskService;
 	return PRemote();
 }
 BINLINE void BClient_Taskapp::initStubs(PTransport transport) {
+	taskNotify = task::app::PTaskNotify(new BStub_TaskNotify(transport));
 	taskService = task::app::PTaskService(new BStub_TaskService(transport));
 }
 }}
@@ -418,6 +570,10 @@ PServer_Taskapp BServer_Taskapp::createServer(PTransportFactory transportFactory
 PServer_Taskapp BServer_Taskapp::createServerR(PTransport transport) {
 	return PServer_Taskapp(new BServer_Taskapp(transport));
 }
+void BServer_Taskapp::addRemote(PSkeleton_TaskNotify remoteSkeleton) {
+	BServer::addRemote(265418285, remoteSkeleton);
+}
+
 BServer_Taskapp::BServer_Taskapp(PTransportFactory transportFactory) 
 	: BServer(
 		transportFactory->createServerTransport(), 

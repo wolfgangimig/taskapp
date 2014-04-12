@@ -51,6 +51,9 @@ public class TaskServiceImpl extends BSkeleton_TaskService {
 			}
 			tasksOfUser.add(task);
 		}
+		
+		// Notify client 
+		
 	}
 
 	@Override

@@ -6,6 +6,30 @@
 
 
 //-------------------------------------------------
+// BRequest_TaskNotify_receiveTasks
+// typeId=2130815904
+
+namespace task { namespace app { 
+
+using namespace ::byps;
+
+class BRequest_TaskNotify_receiveTasks : public BMethodRequest {
+	public: PVectorTaskInfo tasks;
+	
+	// checkpoint byps.gen.cpp.GenApiClass:488
+	public: BRequest_TaskNotify_receiveTasks();
+	// checkpoint byps.gen.cpp.GenApiClass:535
+	public: BRequest_TaskNotify_receiveTasks(const PVectorTaskInfo& tasks);	
+	public: virtual BTYPEID BSerializable_getTypeId() { return 2130815904; }
+	
+	// checkpoint byps.gen.cpp.GenApiClass:871
+	public: void serialize(BIO& ar, const BVERSION version);
+	public: virtual void execute(PRemote __byps__remote, PAsyncResult __byps__asyncResult);
+};
+
+}}
+
+//-------------------------------------------------
 // BRequest_TaskService_addTask
 // typeId=1498136965
 
@@ -115,14 +139,38 @@ class BResult_19 : public BSerializable {
 
 }}
 
+//-------------------------------------------------
+// BResult_5
+// typeId=195526335
+
 namespace task { namespace app { 
 
+using namespace ::byps;
+
+class BResult_5 : public BSerializable {
+	public: int32_t result;
+	// checkpoint byps.gen.cpp.GenApiClass:473
+	public: BResult_5(int32_t result = int32_t()) : result(result) {}	
+	public: virtual BTYPEID BSerializable_getTypeId() { return 195526335; }
+	
+	// checkpoint byps.gen.cpp.GenApiClass:871
+	public: void serialize(BIO& ar, const BVERSION version);
+};
+
+}}
+
+namespace task { namespace app { 
+
+// Serializer for java.util.ArrayList<task.app.TaskInfo>
+void BSerializer_475933318(BIO& bio, POBJECT& pObj, PSerializable& pObjS, void* pBase);
 // Serializer for java.util.HashMap<java.lang.String,java.lang.String>
 void BSerializer_1252554176(BIO& bio, POBJECT& pObj, PSerializable& pObjS, void* pBase);
 // Serializer for java.util.List<java.io.InputStream>
 void BSerializer_1218831438(BIO& bio, POBJECT& pObj, PSerializable& pObjS, void* pBase);
 // Serializer for java.util.List<task.app.TaskInfo>
 void BSerializer_1182472339(BIO& bio, POBJECT& pObj, PSerializable& pObjS, void* pBase);
+// Serializer for task.app.BRequest_TaskNotify_receiveTasks
+void BSerializer_2130815904(BIO& bio, POBJECT& pObj, PSerializable& pObjS, void* pBase);
 // Serializer for task.app.BRequest_TaskService_addTask
 void BSerializer_1498136965(BIO& bio, POBJECT& pObj, PSerializable& pObjS, void* pBase);
 // Serializer for task.app.BRequest_TaskService_getTasks
@@ -133,6 +181,10 @@ void BSerializer_1265487020(BIO& bio, POBJECT& pObj, PSerializable& pObjS, void*
 void BSerializer_2101800006(BIO& bio, POBJECT& pObj, PSerializable& pObjS, void* pBase);
 // Serializer for task.app.BResult_19
 void BSerializer_1766349022(BIO& bio, POBJECT& pObj, PSerializable& pObjS, void* pBase);
+// Serializer for task.app.BResult_5
+void BSerializer_195526335(BIO& bio, POBJECT& pObj, PSerializable& pObjS, void* pBase);
+// Serializer for task.app.BStub_TaskNotify
+void BSerializer_265418285(BIO& bio, POBJECT& pObj, PSerializable& pObjS, void* pBase);
 // Serializer for task.app.BStub_TaskService
 void BSerializer_216769899(BIO& bio, POBJECT& pObj, PSerializable& pObjS, void* pBase);
 // Serializer for task.app.TaskInfo
