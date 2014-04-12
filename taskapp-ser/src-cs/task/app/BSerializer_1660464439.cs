@@ -35,12 +35,6 @@ namespace task.app
 			bbuf.putString(obj.Todo);
 			// checkpoint byps.gen.cs.PrintContext:494
 			bbuf.putString(obj.UserName);
-			if (version >= 100000000000001L) {
-				// checkpoint byps.gen.cs.PrintContext:494
-				bout.writeObj(obj.Attachments, false, task.app.BSerializer_1218831438.instance);
-				// checkpoint byps.gen.cs.PrintContext:494
-				bout.writeObj(obj.Properties, false, task.app.BSerializer_1252554176.instance);
-			}
 		}
 		
 		public override Object read(Object obj1, BInput bin1, long version)
@@ -57,12 +51,6 @@ namespace task.app
 			obj.Todo = bbuf.getString();
 			// checkpoint byps.gen.cs.PrintContext:449
 			obj.UserName = bbuf.getString();
-			if (version >= 100000000000001L) {
-				// checkpoint byps.gen.cs.PrintContext:449
-				obj.Attachments = (IList<System.IO.Stream>)bin.readObj(false, null);
-				// checkpoint byps.gen.cs.PrintContext:449
-				obj.Properties = (Dictionary<String,String>)bin.readObj(false, null);
-			}
 			
 			return obj;
 		}

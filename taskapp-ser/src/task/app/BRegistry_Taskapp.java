@@ -17,8 +17,6 @@ public class BRegistry_Taskapp extends BRegistry {
 		new BRegisteredSerializer(216769899, "task.app.BSerializer_216769899"),
 		new BRegisteredSerializer(280075325, "task.app.BSerializer_280075325"),
 		new BRegisteredSerializer(1182472339, "task.app.BSerializer_1182472339"),
-		new BRegisteredSerializer(1218831438, "task.app.BSerializer_1218831438"),
-		new BRegisteredSerializer(1252554176, "task.app.BSerializer_1252554176"),
 		new BRegisteredSerializer(1265487020, "task.app.BSerializer_1265487020"),
 		new BRegisteredSerializer(1498136965, "task.app.BSerializer_1498136965"),
 		new BRegisteredSerializer(1660464439, "task.app.BSerializer_1660464439"),

@@ -8,9 +8,9 @@ namespace task.app
 	public class BApiDescriptor_Taskapp { 
 	
 		/**
-		 * API serialisation version: 1.0.0.1
+		 * API serialisation version: 1.0.0.0
 		 */
-		public const long VERSION = 100000000000001L;
+		public const long VERSION = 100000000000000L;
 		
 		public readonly static BApiDescriptor instance = new BApiDescriptor(
 			"Taskapp",

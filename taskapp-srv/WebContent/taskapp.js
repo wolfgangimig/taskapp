@@ -13,9 +13,9 @@ task.app = task.app || {};
 */
 task.app.BApiDescriptor_Taskapp = {
 	/**
-	 * API serialisation version: 1.0.0.1
+	 * API serialisation version: 1.0.0.0
 	 */
-	VERSION : "1.0.0.1",
+	VERSION : "1.0.0.0",
 	
 	/**
 	 * Internal used API Desciptor.
@@ -24,7 +24,7 @@ task.app.BApiDescriptor_Taskapp = {
 		return new byps.BApiDescriptor(
 			"Taskapp",
 			"task.app",
-			"1.0.0.1",
+			"1.0.0.0",
 			false, // uniqueObjects
 			new task.app.BRegistry_Taskapp()
 		);
@@ -63,14 +63,12 @@ task.app.BClient_Taskapp.prototype = new byps.BClient();
 
 /**
 */
-task.app.TaskInfo = function(id, userName, properties, dueDate, todo, attachments) {
+task.app.TaskInfo = function(id, userName, dueDate, todo) {
 	this._typeId = 1660464439;
 	this.id = id || 0;
 	this.userName = userName || "";
-	this.properties = properties || null;
 	this.dueDate = dueDate || null;
 	this.todo = todo || "";
-	this.attachments = attachments || null;
 };
 
 
@@ -199,17 +197,6 @@ task.app.BRegistry_Taskapp = function() {
 	
 	this._serializerMap = {
 		
-		// java.util.HashMap<String,String>
-		1252554176 : new byps.BSerializerMap(
-			10 // Element type: String
-		),
-		
-		// java.util.List<java.io.InputStream>
-		1218831438 : new byps.BSerializerArray(
-			15, // Element type: java.io.InputStream
-			1
-		),
-		
 		// java.util.List<task.app.TaskInfo>
 		1182472339 : new byps.BSerializerArray(
 			1660464439, // Element type: task.app.TaskInfo
@@ -293,22 +280,14 @@ task.app.BRegistry_Taskapp = function() {
 				// names of persistent elements
 				"userName":10, // java.lang.String
 				// names of persistent elements
-				"properties":1252554176, // java.util.HashMap<java.lang.String,java.lang.String>
-				// names of persistent elements
 				"dueDate":17, // java.util.Date
 				// names of persistent elements
-				"todo":10, // java.lang.String
-				// names of persistent elements
-				"attachments":1218831438 // java.util.List<java.io.InputStream>
+				"todo":10 // java.lang.String
 			},
 			// checkpoint byps.gen.js.GenRegistry:138
 			// names of inline elements
 			{
-				"properties":1252554176, // java.util.HashMap<java.lang.String,java.lang.String>
-				// names of inline elements
 				"dueDate":17, // java.util.Date
-				// names of inline elements
-				"attachments":1218831438 // java.util.List<java.io.InputStream>
 			},
 			// inlineInstance
 			false

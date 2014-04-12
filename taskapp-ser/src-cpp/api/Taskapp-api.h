@@ -17,14 +17,6 @@ namespace byps {
 	class BSerializable; 
 	typedef byps_ptr< BSerializable > PSerializable; 
 	
-	// java.util.HashMap<java.lang.String,java.lang.String>
-	typedef ::std::map< ::std::wstring , ::std::wstring > BMapStringString;
-	typedef byps_ptr< BMapStringString > PMapStringString;
-	
-	// java.util.List<java.io.InputStream>
-	typedef ::std::vector< PContentStream > BVectorInputStream;
-	typedef byps_ptr< BVectorInputStream > PVectorInputStream;
-	
 	// java.util.List<java.lang.Object>
 	typedef ::std::vector< PSerializable > BVectorObject;
 	typedef byps_ptr< BVectorObject > PVectorObject;
@@ -69,29 +61,23 @@ using namespace ::byps;
 class TaskInfo : public BSerializable {
 	protected: int32_t id;
 	protected: ::std::wstring userName;
-	protected: byps::PMapStringString properties;
 	protected: BDateTime dueDate;
 	protected: ::std::wstring todo;
-	protected: byps::PVectorInputStream attachments;
 	
 	// checkpoint byps.gen.cpp.GenApiClass:488
 	public: TaskInfo();
 	// checkpoint byps.gen.cpp.GenApiClass:535
-	public: TaskInfo(int32_t id, const ::std::wstring& userName, const byps::PMapStringString& properties, const BDateTime& dueDate, const ::std::wstring& todo, const byps::PVectorInputStream& attachments);	
+	public: TaskInfo(int32_t id, const ::std::wstring& userName, const BDateTime& dueDate, const ::std::wstring& todo);	
 	public: virtual BTYPEID BSerializable_getTypeId() { return 1660464439; }
 	
 	public: int32_t getId() { return id; }
 	public: void setId(int32_t v);
 	public: ::std::wstring getUserName() { return userName; }
 	public: void setUserName(::std::wstring v);
-	public: byps::PMapStringString getProperties() { return properties; }
-	public: void setProperties(byps::PMapStringString v);
 	public: BDateTime getDueDate() { return dueDate; }
 	public: void setDueDate(BDateTime v);
 	public: ::std::wstring getTodo() { return todo; }
 	public: void setTodo(::std::wstring v);
-	public: byps::PVectorInputStream getAttachments() { return attachments; }
-	public: void setAttachments(byps::PVectorInputStream v);
 	// checkpoint byps.gen.cpp.GenApiClass:871
 	public: void serialize(BIO& ar, const BVERSION version);
 };
@@ -163,9 +149,9 @@ using namespace ::byps;
 
 class BApiDescriptor_Taskapp { 
 	/**
-	 * API serialisation version: 1.0.0.1
+	 * API serialisation version: 1.0.0.0
 	 */
-	public: const static int64_t VERSION = 100000000000001LL;
+	public: const static int64_t VERSION = 100000000000000LL;
 	public: static PApiDescriptor instance();
 };
 

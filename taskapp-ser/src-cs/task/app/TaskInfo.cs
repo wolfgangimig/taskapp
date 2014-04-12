@@ -18,23 +18,19 @@ namespace task.app
 		public TaskInfo() {
 		}		
 		
-		public TaskInfo(int @id, String @userName, Dictionary<String,String> @properties, DateTime @dueDate, String @todo, IList<System.IO.Stream> @attachments) {
+		public TaskInfo(int @id, String @userName, DateTime @dueDate, String @todo) {
 			this.idValue = @id;
 			this.userNameValue = @userName;
-			this.propertiesValue = @properties;
 			this.dueDateValue = @dueDate;
 			this.todoValue = @todo;
-			this.attachmentsValue = @attachments;
 		}		
 		
 		public TaskInfo(TaskInfo rhs)
 		{
 			this.idValue = rhs.idValue;
 			this.userNameValue = rhs.userNameValue;
-			this.propertiesValue = rhs.propertiesValue;
 			this.dueDateValue = rhs.dueDateValue;
 			this.todoValue = rhs.todoValue;
-			this.attachmentsValue = rhs.attachmentsValue;
 		}		
 		
 		#endregion
@@ -67,19 +63,6 @@ namespace task.app
 		}
 		
 		
-		public Dictionary<String,String> Properties
-		{
-			get
-			{
-				return propertiesValue;
-			}
-			set
-			{
-				this.propertiesValue = value;
-			}
-		}
-		
-		
 		public DateTime DueDate
 		{
 			get
@@ -106,19 +89,6 @@ namespace task.app
 		}
 		
 		
-		public IList<System.IO.Stream> Attachments
-		{
-			get
-			{
-				return attachmentsValue;
-			}
-			set
-			{
-				this.attachmentsValue = value;
-			}
-		}
-		
-		
 		#endregion
 		
 		#region Fields
@@ -127,13 +97,9 @@ namespace task.app
 
 		protected String userNameValue;
 
-		protected Dictionary<String,String> propertiesValue;
-
 		protected DateTime dueDateValue;
 
 		protected String todoValue;
-
-		protected IList<System.IO.Stream> attachmentsValue;
 
 		#endregion
 		

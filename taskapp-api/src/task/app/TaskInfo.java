@@ -1,10 +1,7 @@
 package task.app;
 
-import java.io.InputStream;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
 
 public class TaskInfo implements Serializable {
 
@@ -14,19 +11,10 @@ public class TaskInfo implements Serializable {
 	
 	protected String userName;
 	
-	/**
-	 * @since 1.0.0.1
-	 */
-	protected HashMap<String,String> properties;
-	
 	protected Date dueDate;
 
 	protected String todo;
 	
-	/**
-	 * @since 1.0.0.1
-	 */
-	protected List<InputStream> attachments;
 
 	public int getId() {
 		return id;
@@ -58,22 +46,6 @@ public class TaskInfo implements Serializable {
 
 	public void setTodo(String todo) {
 		this.todo = todo;
-	}
-
-	public HashMap<String, String> getProperties() {
-		return properties;
-	}
-
-	public void setProperties(HashMap<String, String> properties) {
-		this.properties = properties;
-	}
-
-	public List<InputStream> getAttachments() {
-		return attachments;
-	}
-
-	public void setAttachments(List<InputStream> attachments) {
-		this.attachments = attachments;
 	}
 	
 	
