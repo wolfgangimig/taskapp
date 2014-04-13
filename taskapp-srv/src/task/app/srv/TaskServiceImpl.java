@@ -13,8 +13,8 @@ public class TaskServiceImpl extends BSkeleton_TaskService {
 	private String userName;
 	private static HashMap<String, ArrayList<TaskInfo>> tasksOfAllUsers = new HashMap<String, ArrayList<TaskInfo>>();
 	
-	public TaskServiceImpl() {
-		this.userName = "Fritz"; 
+	public TaskServiceImpl(TaskappSession sess) {
+		this.userName = sess.getRemoteUser();
 	}
 
 	@Override
