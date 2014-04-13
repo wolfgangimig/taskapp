@@ -103,9 +103,6 @@ class TaskService : public virtual BRemote {
 	public: virtual void addTask(const PTaskInfo& task)  = 0;
 	public: virtual void addTask(const PTaskInfo& task, ::std::function< void (bool, BException ex) > asyncResult)  = 0;
 	
-	public: virtual void removeTask(int64_t taskId)  = 0;
-	public: virtual void removeTask(int64_t taskId, ::std::function< void (bool, BException ex) > asyncResult)  = 0;
-	
 	public: virtual PVectorTaskInfo getTasks()  = 0;
 	public: virtual void getTasks(::std::function< void (PVectorTaskInfo, BException ex) > asyncResult)  = 0;
 	
@@ -131,8 +128,6 @@ class BStub_TaskService : public BStub, public virtual TaskService {
 	
 	public: virtual void addTask(const PTaskInfo& task) ;
 	public: virtual void addTask(const PTaskInfo& task, ::std::function< void (bool, BException ex) > asyncResult) ;
-	public: virtual void removeTask(int64_t taskId) ;
-	public: virtual void removeTask(int64_t taskId, ::std::function< void (bool, BException ex) > asyncResult) ;
 	public: virtual PVectorTaskInfo getTasks() ;
 	public: virtual void getTasks(::std::function< void (PVectorTaskInfo, BException ex) > asyncResult) ;
 	

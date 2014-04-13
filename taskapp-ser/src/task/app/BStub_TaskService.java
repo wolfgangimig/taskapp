@@ -33,21 +33,6 @@ public class BStub_TaskService extends BStub implements TaskServiceAsync, java.i
 	}
 	
 	// checkpoint byps.gen.j.PrintContext:365
-	public void removeTask(long taskId) throws RemoteException {
-		// checkpoint byps.gen.j.GenRemoteStub:46
-		final BSyncResult<Object> asyncResult = new BSyncResult<Object>();		
-		removeTask(taskId, asyncResult);
-		asyncResult.getResult();		
-	}
-	// checkpoint byps.gen.j.PrintContext:409
-	public void removeTask(long taskId, final BAsyncResult<Object> asyncResult) {
-		// checkpoint byps.gen.j.GenRemoteStub:113
-		BRequest_TaskService_removeTask req = new BRequest_TaskService_removeTask();		
-		req.taskId = taskId;
-		transport.sendMethod(req, asyncResult);
-	}
-	
-	// checkpoint byps.gen.j.PrintContext:365
 	public java.util.List<TaskInfo> getTasks() throws RemoteException {
 		// checkpoint byps.gen.j.GenRemoteStub:46
 		final BSyncResult<java.util.List<TaskInfo>> asyncResult = new BSyncResult<java.util.List<TaskInfo>>();		
