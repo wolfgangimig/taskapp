@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:web="http://xmlns.jcp.org/xml/ns/javaee">
+  <display-name>Taskapp Application</display-name>
+  <servlet>
+    <servlet-name>Taskapp Servlet</servlet-name>
+    <servlet-class>task.app.srv.TaskappServlet</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Taskapp Servlet</servlet-name>
+    <url-pattern>/taskappauth/auth</url-pattern>
+  </servlet-mapping>
+  <security-constraint>
+    <display-name>Taskapp Securitiy Constraint</display-name>
+    <web-resource-collection>
+      <web-resource-name>Taskapp Session Resource</web-resource-name>
+      <url-pattern>/taskappauth/auth</url-pattern>
+    </web-resource-collection>
+    <auth-constraint>
+      <role-name>Taskapp Role</role-name>
+    </auth-constraint>
+  </security-constraint>
+  <login-config>
+    <auth-method>BASIC</auth-method>
+    <realm-name>Taskapp Realm</realm-name>
+  </login-config>
+</web-app>
