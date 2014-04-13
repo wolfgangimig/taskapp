@@ -11,18 +11,16 @@ import task.app.BClient_Taskapp;
 import task.app.BSkeleton_TaskService;
 import task.app.TaskInfo;
 import byps.RemoteException;
-import byps.http.HSession;
 
 public class TaskServiceImpl extends BSkeleton_TaskService {
 	
+	private TaskappSession session;
 	private String userName;
 	private static HashMap<String, ArrayList<TaskInfo>> tasksOfAllUsers = new HashMap<String, ArrayList<TaskInfo>>();
 	
-	private HSession session;
-	
-	public TaskServiceImpl(HSession session) {
-		this.session = session;
-		this.userName = "Fritz"; 
+	public TaskServiceImpl(TaskappSession sess) {
+		this.session = sess;
+		this.userName = sess.getRemoteUser();
 	}
 
 	@Override
