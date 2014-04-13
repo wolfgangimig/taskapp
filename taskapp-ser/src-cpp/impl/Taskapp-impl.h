@@ -76,30 +76,6 @@ class BRequest_TaskService_getTasks : public BMethodRequest {
 }}
 
 //-------------------------------------------------
-// BRequest_TaskService_removeTask
-// typeId=1265487020
-
-namespace task { namespace app { 
-
-using namespace ::byps;
-
-class BRequest_TaskService_removeTask : public BMethodRequest {
-	public: int64_t taskId;
-	
-	// checkpoint byps.gen.cpp.GenApiClass:488
-	public: BRequest_TaskService_removeTask();
-	// checkpoint byps.gen.cpp.GenApiClass:535
-	public: BRequest_TaskService_removeTask(int64_t taskId);	
-	public: virtual BTYPEID BSerializable_getTypeId() { return 1265487020; }
-	
-	// checkpoint byps.gen.cpp.GenApiClass:871
-	public: void serialize(BIO& ar, const BVERSION version);
-	public: virtual void execute(PRemote __byps__remote, PAsyncResult __byps__asyncResult);
-};
-
-}}
-
-//-------------------------------------------------
 // BResult_1182472339
 // typeId=2101800006
 
@@ -173,8 +149,6 @@ void BSerializer_484377997(BIO& bio, POBJECT& pObj, PSerializable& pObjS, void* 
 void BSerializer_1498136965(BIO& bio, POBJECT& pObj, PSerializable& pObjS, void* pBase);
 // Serializer for task.app.BRequest_TaskService_getTasks
 void BSerializer_280075325(BIO& bio, POBJECT& pObj, PSerializable& pObjS, void* pBase);
-// Serializer for task.app.BRequest_TaskService_removeTask
-void BSerializer_1265487020(BIO& bio, POBJECT& pObj, PSerializable& pObjS, void* pBase);
 // Serializer for task.app.BResult_1182472339
 void BSerializer_2101800006(BIO& bio, POBJECT& pObj, PSerializable& pObjS, void* pBase);
 // Serializer for task.app.BResult_19

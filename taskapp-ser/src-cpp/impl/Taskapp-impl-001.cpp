@@ -167,51 +167,6 @@ void BSerializer_280075325(BIO& bio, POBJECT& , PSerializable& pObjS, void* pBas
 namespace task { namespace app { 
 
 //-------------------------------------------------
-// Implementation of class BRequest_TaskService_removeTask
-// Generated from class byps.gen.cpp.GenApiClass
-
-// checkpoint byps.gen.cpp.GenApiClass:489
-BRequest_TaskService_removeTask::BRequest_TaskService_removeTask() : BMethodRequest(216769899) {
-	taskId = 0;
-}
-// checkpoint byps.gen.cpp.GenApiClass:536
-task::app::BRequest_TaskService_removeTask::BRequest_TaskService_removeTask(int64_t taskId)
-	: BMethodRequest(216769899) 
-	, taskId(taskId)
-	{}
-// checkpoint byps.gen.cpp.GenApiClass:877
-void task::app::BRequest_TaskService_removeTask::serialize(BIO& ar, const BVERSION version) {
-	ar & this->taskId;
-}
-void task::app::BRequest_TaskService_removeTask::execute(PRemote __byps__remote, PAsyncResult __byps__asyncResult) {
-	PTaskService __byps__remoteT = byps_ptr_cast<TaskService>(__byps__remote);
-	__byps__remoteT->removeTask(taskId, [__byps__asyncResult](bool __byps__result, BException __byps__ex) {
-		if (__byps__ex) {
-			__byps__asyncResult->setAsyncResult(BVariant(__byps__ex));
-		}
-		else {
-			PSerializable __byps__methodResult(new BResult_19(__byps__result));
-			__byps__asyncResult->setAsyncResult(BVariant(__byps__methodResult));
-		}
-	});
-}
-}}
-
-// checkpoint byps.gen.cpp.GenApiClass:934
-namespace task { namespace app { 
-void BSerializer_1265487020(BIO& bio, POBJECT& , PSerializable& pObjS, void* pBase) {
-	BSerializable* p = pBase ? reinterpret_cast<BSerializable*>(pBase) : pObjS.get();
-	if (p) { 
-		task::app::BRequest_TaskService_removeTask& r = * dynamic_cast< task::app::BRequest_TaskService_removeTask*>(p);
-		bio & r;
-	} else {
-		pObjS = PSerializable(new task::app::BRequest_TaskService_removeTask());
-	}
-}
-}}
-namespace task { namespace app { 
-
-//-------------------------------------------------
 // Implementation of class BResult_1182472339
 // Generated from class byps.gen.cpp.GenApiClass
 
@@ -423,21 +378,6 @@ void BStub_TaskService::addTask(const PTaskInfo& task, ::std::function< void (bo
 }}
 
 namespace task { namespace app { 
-void BStub_TaskService::removeTask(int64_t taskId)  {
-	BSyncResultT< bool > syncResult;	
-	removeTask(taskId, [&syncResult](bool v, BException ex) {
-		syncResult.setAsyncResult(v, ex);
-	});
-	syncResult.getResult();
-}
-void BStub_TaskService::removeTask(int64_t taskId, ::std::function< void (bool, BException ex) > asyncResult)  {
-	PMethodRequest req(new BRequest_TaskService_removeTask(taskId));
-	PAsyncResult outerResult( new BAsyncResultReceiveMethodL< bool, BResult_19 >(asyncResult) );
-	transport->sendMethod(req, outerResult);
-}
-}}
-
-namespace task { namespace app { 
 PVectorTaskInfo BStub_TaskService::getTasks()  {
 	BSyncResultT< PVectorTaskInfo > syncResult;	
 	getTasks([&syncResult](PVectorTaskInfo v, BException ex) {
@@ -482,7 +422,6 @@ task::app::BRegistry_Taskapp::BRegistry_Taskapp()
 	registerClass(typeid(task::app::BRequest_TaskNotify_receiveTask), task::app::BSerializer_484377997, 484377997);
 	registerClass(typeid(task::app::BRequest_TaskService_addTask), task::app::BSerializer_1498136965, 1498136965);
 	registerClass(typeid(task::app::BRequest_TaskService_getTasks), task::app::BSerializer_280075325, 280075325);
-	registerClass(typeid(task::app::BRequest_TaskService_removeTask), task::app::BSerializer_1265487020, 1265487020);
 	registerClass(typeid(task::app::BResult_1182472339), task::app::BSerializer_2101800006, 2101800006);
 	registerClass(typeid(task::app::BResult_19), task::app::BSerializer_1766349022, 1766349022);
 	registerClass(typeid(task::app::BResult_5), task::app::BSerializer_195526335, 195526335);

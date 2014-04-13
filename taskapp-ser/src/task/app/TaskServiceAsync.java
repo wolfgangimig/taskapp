@@ -20,13 +20,6 @@ public interface TaskServiceAsync extends BRemote,
 	/**
 	*/
 	// checkpoint byps.gen.j.PrintContext:365
-	public void removeTask(long taskId) throws RemoteException;
-	// checkpoint byps.gen.j.PrintContext:409
-	public void removeTask(long taskId, final BAsyncResult<Object> asyncResult) ;
-	
-	/**
-	*/
-	// checkpoint byps.gen.j.PrintContext:365
 	public java.util.List<TaskInfo> getTasks() throws RemoteException;
 	// checkpoint byps.gen.j.PrintContext:409
 	public void getTasks(final BAsyncResult<java.util.List<TaskInfo>> asyncResult) ;
