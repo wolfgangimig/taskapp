@@ -33,20 +33,6 @@ public class BSkeleton_TaskService extends BSkeleton implements TaskServiceAsync
 	}
 	
 	// checkpoint byps.gen.j.PrintContext:365
-	public void removeTask(long taskId) throws RemoteException {
-		throw new BException(BExceptionC.UNSUPPORTED_METHOD, "");
-	}
-	// checkpoint byps.gen.j.PrintContext:409
-	public void removeTask(long taskId, final BAsyncResult<Object> asyncResult) {
-		try {
-			removeTask(taskId);
-			asyncResult.setAsyncResult(null, null);
-		} catch (Throwable e) {
-			asyncResult.setAsyncResult(null, e);
-		}
-	}
-	
-	// checkpoint byps.gen.j.PrintContext:365
 	public java.util.List<TaskInfo> getTasks() throws RemoteException {
 		throw new BException(BExceptionC.UNSUPPORTED_METHOD, "");
 	}

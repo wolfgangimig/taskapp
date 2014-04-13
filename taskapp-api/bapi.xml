@@ -51,27 +51,6 @@
             <since>0.0.0.0</since>
         </serial>
         <serial>
-            <typeName>task.app.BRequest_TaskService_removeTask</typeName>
-            <typeId>1265487020</typeId>
-            <members>
-                <member>
-                    <name>taskId</name>
-                    <typeName>long</typeName>
-                    <isTransient>false</isTransient>
-                    <isStatic>false</isStatic>
-                    <isFinal>false</isFinal>
-                    <access>PUBLIC</access>
-                    <since>0.0.0.0</since>
-                </member>
-            </members>
-            <comments/>
-            <baseFullName></baseFullName>
-            <isInline>false</isInline>
-            <isEnum>false</isEnum>
-            <isFinal>true</isFinal>
-            <since>0.0.0.0</since>
-        </serial>
-        <serial>
             <typeName>task.app.BResult_1182472339</typeName>
             <typeId>2101800006</typeId>
             <members>
@@ -173,15 +152,6 @@
                     <remoteName>task.app.TaskService</remoteName>
                     <since>0.0.0.0</since>
                     <requestTypeName>task.app.BRequest_TaskService_addTask</requestTypeName>
-                    <resultTypeName>task.app.BResult_19</resultTypeName>
-                    <exceptionTypeNames/>
-                    <comments/>
-                </method>
-                <method>
-                    <name>removeTask</name>
-                    <remoteName>task.app.TaskService</remoteName>
-                    <since>0.0.0.0</since>
-                    <requestTypeName>task.app.BRequest_TaskService_removeTask</requestTypeName>
                     <resultTypeName>task.app.BResult_19</resultTypeName>
                     <exceptionTypeNames/>
                     <comments/>

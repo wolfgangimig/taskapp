@@ -23,17 +23,6 @@ namespace task.app
 			transport.sendMethod(req, asyncResult);
 		}
 		
-		public virtual void RemoveTask(long taskId) {
-			BSyncResult<Object> asyncResult = new BSyncResult<Object>();			
-			RemoveTask(taskId, BAsyncResultHelper.ToDelegate<Object>(asyncResult));
-			asyncResult.GetResult();			
-		}
-		public virtual void RemoveTask(long taskId, BAsyncResult<Object> asyncResult) {
-			BRequest_TaskService_removeTask req = new BRequest_TaskService_removeTask();			
-			req.taskIdValue = taskId;
-			transport.sendMethod(req, asyncResult);
-		}
-		
 		public virtual IList<TaskInfo> GetTasks() {
 			BSyncResult<IList<TaskInfo>> asyncResult = new BSyncResult<IList<TaskInfo>>();			
 			GetTasks(BAsyncResultHelper.ToDelegate<IList<TaskInfo>>(asyncResult));

@@ -125,16 +125,6 @@ task.app.BStub_TaskService.prototype.addTask = function(task, __byps__asyncResul
 // checkpoint byps.gen.js.PrintContext:133
 /**
 */
-task.app.BStub_TaskService.prototype.removeTask = function(taskId, __byps__asyncResult) {
-	// checkpoint byps.gen.js.GenRemoteStub:40
-	var req =  { _typeId : 1265487020, taskId : taskId };
-	var ret = this.transport.sendMethod(req, __byps__asyncResult);
-	return ret;
-};
-
-// checkpoint byps.gen.js.PrintContext:133
-/**
-*/
 task.app.BStub_TaskService.prototype.getTasks = function(__byps__asyncResult) {
 	// checkpoint byps.gen.js.GenRemoteStub:40
 	var req =  { _typeId : 280075325 };
@@ -163,15 +153,6 @@ task.app.BServer_Taskapp = function(transport) {
 				1766349022, // _typeId of result class
 				function(remote, methodObj, methodResult) {
 					remote.async_addTask(methodObj.task, methodResult);
-				}
-			],
-			
-			// Method removeTask
-			1265487020 : [ // _typeId of request class
-				216769899, // _typeId of remote interface
-				1766349022, // _typeId of result class
-				function(remote, methodObj, methodResult) {
-					remote.async_removeTask(methodObj.taskId, methodResult);
 				}
 			],
 			
@@ -233,19 +214,6 @@ task.app.BRegistry_Taskapp = function() {
 		280075325 : new byps.BSerializer(
 			// checkpoint byps.gen.js.GenRegistry:138
 			null,
-			// checkpoint byps.gen.js.GenRegistry:138
-			null,
-			// inlineInstance
-			false
-		),
-		
-		// task.app.BRequest_TaskService_removeTask
-		1265487020 : new byps.BSerializer(
-			// checkpoint byps.gen.js.GenRegistry:138
-			// names of persistent elements
-			{
-				"taskId":6 // long
-			},
 			// checkpoint byps.gen.js.GenRegistry:138
 			null,
 			// inlineInstance

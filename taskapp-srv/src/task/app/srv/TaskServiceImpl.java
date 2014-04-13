@@ -54,21 +54,6 @@ public class TaskServiceImpl extends BSkeleton_TaskService {
 	}
 
 	@Override
-	public void removeTask(long taskId) throws RemoteException {
-		synchronized(tasksOfAllUsers) {
-			ArrayList<TaskInfo> tasksOfUser = tasksOfAllUsers.get(this.userName);
-			if (tasksOfUser != null) {
-				for (int i = 0; i < tasksOfUser.size(); i++) {
-					if (tasksOfUser.get(i).getId() == taskId) {
-						tasksOfUser.remove(i);
-						break;
-					}
-				}
-			}
-		}
-	}
-
-	@Override
 	public List<TaskInfo> getTasks() throws RemoteException {
 		synchronized(tasksOfAllUsers) {
 			ArrayList<TaskInfo> tasksOfUser = tasksOfAllUsers.get(userName);

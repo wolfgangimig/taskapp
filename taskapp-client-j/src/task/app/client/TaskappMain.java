@@ -35,9 +35,6 @@ public class TaskappMain {
 			if (command.equals("-add")) {
 				addTask(bclient, args);
 			}
-			else if (command.equals("-remove")) {
-				removeTask(bclient, args);
-			}
 			else if (command.equals("-list")) {
 				listTasks(bclient);
 			}
@@ -81,11 +78,6 @@ public class TaskappMain {
 		}
 		
 		bclient.getTaskService().addTask(t);
-	}
-	
-	private static void removeTask(BClient_Taskapp bclient, String[] args) throws RemoteException {
-		int taskId = Integer.valueOf(args[1]);
-		bclient.getTaskService().removeTask(taskId);
 	}
 	
 	private static void listTasks(BClient_Taskapp bclient) throws RemoteException {
