@@ -1,6 +1,8 @@
 package task.app.client;
 
 import java.util.HashMap;
+import java.net.Authenticator;
+import java.net.PasswordAuthentication;
 import java.util.List;
 
 import task.app.BApiDescriptor_Taskapp;
@@ -21,6 +23,8 @@ public class TaskappMain {
 		BClient_Taskapp bclient = createClient(url);
 		
 		try {
+			setCredentials("Fritz", "abc");
+			
 			bclient.start();
 			System.out.println("connected, targetId=" + bclient.getTransport().getTargetId());
 
@@ -43,10 +47,26 @@ public class TaskappMain {
 	}
 	
 	private static BClient_Taskapp createClient(String url) {
-		BWire wire = new HWireClient(url, 0, 120, null);
+		
+		BWire wire = new HWireClient(url, 0, 120, null) {
+			@Override
+			public String getServletPathForNegotiationAndAuthentication() {
+				return "/taskappauth/auth";
+			};
+		};
+		
 		BTransportFactory tfact = new HTransportFactoryClient(BApiDescriptor_Taskapp.instance(), wire, 1);
 		BClient_Taskapp bclient = BClient_Taskapp.createClient(tfact);
 		return bclient;
+	}
+
+	private static void setCredentials(final String userName, final String userPwd) {
+	    class MyAuthenticator extends Authenticator {
+	        public PasswordAuthentication getPasswordAuthentication () {
+	            return new PasswordAuthentication (userName, userPwd.toCharArray());
+	        }
+	    }
+	    Authenticator.setDefault(new MyAuthenticator());
 	}
 	
 	private static void addTask(BClient_Taskapp bclient, String[] args) throws RemoteException {
