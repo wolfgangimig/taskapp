@@ -11,9 +11,6 @@ namespace task.app
 		void AddTask(TaskInfo task);
 		void AddTask(TaskInfo task, BAsyncResult<Object> asyncResult) ;
 		
-		void RemoveTask(long taskId);
-		void RemoveTask(long taskId, BAsyncResult<Object> asyncResult) ;
-		
 		IList<TaskInfo> GetTasks();
 		void GetTasks(BAsyncResult<IList<TaskInfo>> asyncResult) ;
 		
