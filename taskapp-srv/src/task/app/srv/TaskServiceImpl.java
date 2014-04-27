@@ -1,6 +1,5 @@
 package task.app.srv;
 
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -9,6 +8,7 @@ import java.util.List;
 
 import task.app.BSkeleton_TaskService;
 import task.app.TaskInfo;
+import byps.BContentStream;
 import byps.RemoteException;
 
 public class TaskServiceImpl extends BSkeleton_TaskService {
@@ -23,26 +23,7 @@ public class TaskServiceImpl extends BSkeleton_TaskService {
 	@Override
 	public void addTask(TaskInfo task) throws RemoteException {
 		
-		// Read streams from client and replace them in TaskInfo object
-		try {
-			List<InputStream> istreams = task.getAttachments();
-			if (istreams!= null) {
-				
-				List<InputStream> nstreams = new ArrayList<InputStream>();
-				task.setAttachments(nstreams);
-				
-				for (InputStream is : istreams) {
-					byte[] buf = new byte[100];
-					int len = is.read(buf);
-					InputStream ns = new ByteArrayInputStream(buf, 0, len);
-					nstreams.add(ns);
-					is.close();
-				}
-			}
-		}
-		catch (IOException e) {
-			throw new RemoteException("Failed to read streams", e);
-		}
+		task = cloneTask(task);
 				
 		synchronized(tasksOfAllUsers) {
 			ArrayList<TaskInfo> tasksOfUser = tasksOfAllUsers.get(task.getUserName());
@@ -51,6 +32,7 @@ public class TaskServiceImpl extends BSkeleton_TaskService {
 			}
 			tasksOfUser.add(task);
 		}
+		
 	}
 
 	@Override
@@ -60,20 +42,42 @@ public class TaskServiceImpl extends BSkeleton_TaskService {
 			if (tasksOfUser == null) {
 				tasksOfAllUsers.put(this.userName, tasksOfUser = new ArrayList<TaskInfo>()); 
 			}
-			
-			// Move stream position to begin
-			for (TaskInfo task : tasksOfUser) {
-				List<InputStream> streams = task.getAttachments();
-				if (streams != null) {
-					for (InputStream is : task.getAttachments()) {
-						ByteArrayInputStream bs = (ByteArrayInputStream)is;
-						bs.reset();
-					}
-				}
-			}
-			
-			return tasksOfUser;
+			return cloneTaskList(tasksOfUser);
 		}
 	}
+	
+	private List<TaskInfo> cloneTaskList(List<TaskInfo> tasks) throws RemoteException {
+		if (tasks == null) return null;
+		ArrayList<TaskInfo> ntasks = new ArrayList<TaskInfo>(tasks.size());
+		for (TaskInfo t : tasks) {
+			ntasks.add(cloneTask(t));
+		}
+		return ntasks;
+	}
 
+	private TaskInfo cloneTask(TaskInfo t) throws RemoteException {
+		TaskInfo n = new TaskInfo();
+		n.setId(t.getId());
+		n.setUserName(t.getUserName());
+		n.setDueDate(t.getDueDate());
+		n.setTodo(t.getTodo());
+		
+		List<InputStream> istreams = t.getAttachments();
+		if (istreams != null) {
+			List<InputStream> nstreams = new ArrayList<InputStream>(istreams.size());
+			n.setAttachments(nstreams);
+			for (InputStream is : istreams) {
+				BContentStream ns;
+				try {
+					ns = ((BContentStream)is).cloneInputStream();
+					nstreams.add(ns);
+				} catch (IOException e) {
+					throw new RemoteException("Failed to clone stream.", e);
+				}
+				
+			}
+		}
+		
+		return n;
+	}
 }
