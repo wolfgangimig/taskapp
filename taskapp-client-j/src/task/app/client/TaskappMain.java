@@ -93,7 +93,7 @@ public class TaskappMain {
 		
 		try {
 			ArrayList<InputStream> attachments = new ArrayList<InputStream>();
-			attachments.add(new BContentStreamWrapper(new FileInputStream(".project"), "plain/text", -1));
+			attachments.add(new BContentStreamWrapper(new FileInputStream(".project"), "text/plain", -1));
 			attachments.add(new BContentStreamWrapper(new ByteArrayInputStream("Text as stream".getBytes()), "text/plain", -1));
 			t.setAttachments(attachments);
 		} catch (FileNotFoundException e) {
