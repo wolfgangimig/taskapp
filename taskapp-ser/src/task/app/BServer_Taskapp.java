@@ -33,6 +33,11 @@ public class BServer_Taskapp extends BServer {
 		);
 	}
 	
+	public BServer_Taskapp addRemote(BSkeleton_TaskNotify remoteSkeleton) {
+		addRemote(265418285, remoteSkeleton);
+		return this;
+	}
+	
 	public BServer_Taskapp addRemote(BSkeleton_TaskService remoteSkeleton) {
 		addRemote(216769899, remoteSkeleton);
 		return this;

@@ -15,12 +15,23 @@ namespace task.app
 			return new BClient_Taskapp(transport);
 		}
 		
+		public virtual BClient_Taskapp addRemote(BSkeleton_TaskNotify remoteSkeleton) {
+			if (serverR == null) throw new BException(BExceptionC.NO_REVERSE_CONNECTIONS, "No reverse connections.");
+			serverR.server.addRemote(265418285, remoteSkeleton);
+			return this;
+		}
+		
+		public virtual TaskNotify TaskNotify
+		{
+			get { return taskNotifyVal; }
+		}
 		public virtual TaskService TaskService
 		{
 			get { return taskServiceVal; }
 		}
 		
 		public override BRemote getStub(int remoteId) {
+			if (remoteId == 265418285) return taskNotifyVal;
 			if (remoteId == 216769899) return taskServiceVal;
 			return null;
 		}
@@ -42,9 +53,11 @@ namespace task.app
 			initStubs(transportVal);
 		}
 		
+		protected TaskNotify taskNotifyVal;
 		protected TaskService taskServiceVal;
 		
 		private void initStubs(BTransport transport) {
+			taskNotifyVal = new BStub_TaskNotify(transport);
 			taskServiceVal = new BStub_TaskService(transport);
 		}
 		

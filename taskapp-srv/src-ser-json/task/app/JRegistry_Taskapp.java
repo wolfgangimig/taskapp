@@ -14,8 +14,11 @@ public class JRegistry_Taskapp extends BRegistry {
 	}
 	
 	private static BRegisteredSerializer[] serializers = new BRegisteredSerializer[] {
+		new BRegisteredSerializer(195526335, "task.app.JSerializer_195526335"),
 		new BRegisteredSerializer(216769899, "task.app.JSerializer_216769899"),
+		new BRegisteredSerializer(265418285, "task.app.JSerializer_265418285"),
 		new BRegisteredSerializer(280075325, "task.app.JSerializer_280075325"),
+		new BRegisteredSerializer(484377997, "task.app.JSerializer_484377997"),
 		new BRegisteredSerializer(1182472339, "task.app.JSerializer_1182472339"),
 		new BRegisteredSerializer(1218831438, "task.app.JSerializer_1218831438"),
 		new BRegisteredSerializer(1252554176, "task.app.JSerializer_1252554176"),

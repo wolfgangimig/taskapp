@@ -39,6 +39,10 @@ namespace task {
 
 	namespace app {
 	
+		// task.app.BStub_TaskNotify
+		class BStub_TaskNotify; 
+		typedef byps_ptr< BStub_TaskNotify > PStub_TaskNotify; 
+		
 		// task.app.BStub_TaskService
 		class BStub_TaskService; 
 		typedef byps_ptr< BStub_TaskService > PStub_TaskService; 
@@ -46,6 +50,10 @@ namespace task {
 		// task.app.TaskInfo
 		class TaskInfo; 
 		typedef byps_ptr< TaskInfo > PTaskInfo; 
+		
+		// task.app.TaskNotify
+		class TaskNotify; 
+		typedef byps_ptr< TaskNotify > PTaskNotify; 
 		
 		// task.app.TaskService
 		class TaskService; 
@@ -97,6 +105,68 @@ class TaskInfo : public BSerializable {
 };
 
 }}
+
+//-------------------------------------------------
+// TaskNotify
+
+namespace task { namespace app { 
+
+using namespace ::byps;
+
+class TaskNotify : public virtual BRemote {
+	
+	public: virtual int32_t receiveTask(const PTaskInfo& task)  = 0;
+	public: virtual void receiveTask(const PTaskInfo& task, ::std::function< void (int32_t, BException ex) > asyncResult)  = 0;
+	
+	
+};
+
+}}
+//-------------------------------------------------
+// Skeleton class BSkeleton_TaskNotify
+// Your interface implementation class has to be derived from this skeleton.
+// Either provide an asynchronous or a synchronous function in your subclass.
+
+namespace task { namespace app { 
+
+using namespace ::byps;
+
+class BSkeleton_TaskNotify;
+typedef byps_ptr<BSkeleton_TaskNotify> PSkeleton_TaskNotify;
+
+class BSkeleton_TaskNotify : public BSkeleton, public virtual TaskNotify {
+	
+	public: virtual BTYPEID BSerializable_getTypeId() { return 265418285; }
+	
+	public: virtual int32_t receiveTask(const PTaskInfo& task) ;
+	public: virtual void receiveTask(const PTaskInfo& task, ::std::function< void (int32_t, BException ex) > asyncResult) ;
+	
+	
+};
+}}
+
+//-------------------------------------------------
+// Stub class BStub_TaskNotify
+
+namespace task { namespace app { 
+
+using namespace ::byps;
+
+class BStub_TaskNotify;
+typedef byps_ptr<BStub_TaskNotify> PStub_TaskNotify;
+
+class BStub_TaskNotify : public BStub, public virtual TaskNotify {
+	
+	public: BStub_TaskNotify(PTransport transport);	
+	
+	public: virtual BTYPEID BSerializable_getTypeId() { return 265418285; }
+	
+	public: virtual int32_t receiveTask(const PTaskInfo& task) ;
+	public: virtual void receiveTask(const PTaskInfo& task, ::std::function< void (int32_t, BException ex) > asyncResult) ;
+	
+};
+}}
+
 
 //-------------------------------------------------
 // TaskService
@@ -179,16 +249,20 @@ class BClient_Taskapp : public BClient {
 	
 	public: static PClient_Taskapp createClientR(PTransport transport);
 	
+	public: void addRemote(PSkeleton_TaskNotify remoteSkeleton);
+	
 	protected: BClient_Taskapp(PTransportFactory transportFactory); 
 	
 	protected: BClient_Taskapp(PTransport transport); 
 	
 	public: virtual ~BClient_Taskapp() {}
 	
+	virtual task::app::PTaskNotify getTaskNotify();	
 	virtual task::app::PTaskService getTaskService();	
 	
 	public: virtual PRemote getStub(int remoteId);
 	
+	protected: task::app::PTaskNotify taskNotify;
 	protected: task::app::PTaskService taskService;
 	
 	private: void initStubs(PTransport transport);
@@ -209,6 +283,8 @@ class BServer_Taskapp : public BServer {
 	public: static PServer_Taskapp createServer(PTransportFactory transportFactory);
 	
 	public: static PServer_Taskapp createServerR(PTransport transport);
+	
+	public: void addRemote(PSkeleton_TaskNotify remoteSkeleton);
 	
 	protected: BServer_Taskapp(PTransportFactory transportFactory); 
 	

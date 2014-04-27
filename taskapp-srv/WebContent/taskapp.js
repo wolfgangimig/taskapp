@@ -50,6 +50,7 @@ task.app.BClient_Taskapp = function(transportFactory) {
 		new task.app.BServer_Taskapp(transportFactory.createServerTransport())
 	);
 	
+	this.taskNotify = new task.app.BStub_TaskNotify(this.transport);
 	this.taskService = new task.app.BStub_TaskService(this.transport);
 };
 task.app.BClient_Taskapp.prototype = new byps.BClient();
@@ -95,12 +96,73 @@ task.app.TaskInfo = function(id, userName, properties, dueDate, todo, attachment
  * ----------------------------------------------
 */
 
+/**
+ * This class provides a skeleton implementation of the interface TaskNotify.
+ * Use an object of this class as the prototype of your interface implementation.
+ * Either provide an asynchronous or a synchronous function in your implementation.
+ * The framework calls only the asynchronous function.
+ */
+task.app.BSkeleton_TaskNotify = function() {
+	
+	this._typeId = 265418285;
+	
+	this.transport = null; // is set in BServer.addRemote
+	
+	this.toJSON = function (key) {
+		return { _typeId : 265418285, targetId : this.transport.targetId };
+	};
+	
+	
+};
+
+// checkpoint byps.gen.js.PrintContext:133
+/**
+*/
+task.app.BSkeleton_TaskNotify.prototype.receiveTask = function(task) /* returns int , throws BException, InterruptedException*/  {
+	byps.throwUNSUPPORTED("");
+};
+// checkpoint byps.gen.js.PrintContext:133
+/**
+*/
+task.app.BSkeleton_TaskNotify.prototype.async_receiveTask = function(task, __byps__asyncResult){
+	try {
+		var __byps__ret = this.receiveTask(task);
+		__byps__asyncResult(__byps__ret, null);
+	} catch (e) {
+		__byps__asyncResult(null, e);
+	};
+};
+
 
 /**
  * ----------------------------------------------
  * Stub classes
  * ----------------------------------------------
 */
+
+/**
+ * @BClientRemote 
+ * @since 1.0.0.1
+ * @BClientRemote 
+ * @since 1.0.0.1
+*/
+task.app.BStub_TaskNotify = function(transport) {
+	
+	this._typeId = 265418285;
+	
+	this.transport = transport;
+	
+};
+
+// checkpoint byps.gen.js.PrintContext:133
+/**
+*/
+task.app.BStub_TaskNotify.prototype.receiveTask = function(task, __byps__asyncResult) {
+	// checkpoint byps.gen.js.GenRemoteStub:40
+	var req =  { _typeId : 484377997, task : task };
+	var ret = this.transport.sendMethod(req, __byps__asyncResult);
+	return ret;
+};
 
 /**
 */
@@ -145,6 +207,17 @@ task.app.BServer_Taskapp = function(transport) {
 	this._remotes = {};
 	
 	this._methodMap = {
+		
+		// Remote Interface TaskNotify			
+			// Method receiveTask
+			484377997 : [ // _typeId of request class
+				265418285, // _typeId of remote interface
+				195526335, // _typeId of result class
+				function(remote, methodObj, methodResult) {
+					remote.async_receiveTask(methodObj.task, methodResult);
+				}
+			],
+		
 		
 		// Remote Interface TaskService			
 			// Method addTask
@@ -195,6 +268,19 @@ task.app.BRegistry_Taskapp = function() {
 		1182472339 : new byps.BSerializerArray(
 			1660464439, // Element type: task.app.TaskInfo
 			1
+		),
+		
+		// task.app.BRequest_TaskNotify_receiveTask
+		484377997 : new byps.BSerializer(
+			// checkpoint byps.gen.js.GenRegistry:138
+			// names of persistent elements
+			{
+				"task":1660464439 // task.app.TaskInfo
+			},
+			// checkpoint byps.gen.js.GenRegistry:138
+			null,
+			// inlineInstance
+			false
 		),
 		
 		// task.app.BRequest_TaskService_addTask
@@ -248,6 +334,22 @@ task.app.BRegistry_Taskapp = function() {
 			// inlineInstance
 			false
 		),
+		
+		// task.app.BResult_5
+		195526335 : new byps.BSerializer(
+			// checkpoint byps.gen.js.GenRegistry:138
+			// names of persistent elements
+			{
+				"result":5 // int
+			},
+			// checkpoint byps.gen.js.GenRegistry:138
+			null,
+			// inlineInstance
+			false
+		),
+		
+		// task.app.BStub_TaskNotify
+		265418285 : new byps.BSerializerRemote(task.app.BStub_TaskNotify),
 		
 		// task.app.BStub_TaskService
 		216769899 : new byps.BSerializerRemote(task.app.BStub_TaskService),
