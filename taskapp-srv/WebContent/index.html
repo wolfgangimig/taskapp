@@ -3,8 +3,156 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Taskapp</title>
+
+<script type="text/javascript" src="json2.js"></script>
+<script type="text/javascript" src="byps.js"></script>
+<script type="text/javascript" src="taskapp.js"></script>
+
+<script type="text/javascript">
+
+var url = "/taskapp-srv/taskapp"
+var bclient = null;
+
+window.onload = function() {
+	init();
+}
+
+function init() {
+	
+	var wire = new byps.BWireClient(url, 0, 120);
+	wire.getServletPathForNegotiationAndAuthentication = function() {
+		return "/taskappauth/auth";
+	};
+	
+	var transportFactory = new byps.BTransportFactory(
+			task.app.BApiDescriptor_Taskapp.instance(), 
+			wire, 1);
+			
+	this.bclient = task.app.createClient_Taskapp(transportFactory);
+	
+	this.bclient.start();
+} 
+
+window.onbeforeunload = function() {
+	done();
+};
+
+function done() {
+	if (bclient) {
+		bclient.done();
+	}
+}
+
+function updateTaskList() {
+	var tab = document.getElementById("taskList");
+	
+	// clear all rows
+	while (tab.rows.length > 1) tab.deleteRow(1);
+
+	// insert rows
+	var tasks = bclient.taskService.getTasks();
+	for (var i = 0; i < tasks.length; i++) {
+		var task = tasks[i];
+		var colIdx = 0;
+		var row = tab.insertRow(tab.rows.length);
+		row.insertCell(colIdx++).innerHTML = task.id;
+		row.insertCell(colIdx++).innerHTML = task.userName;
+		row.insertCell(colIdx++).innerHTML = task.dueDate;
+		row.insertCell(colIdx++).innerHTML = task.todo;
+		row.insertCell(colIdx++).innerHTML = getTaskListProperties(task);
+		row.insertCell(colIdx++).innerHTML = getTaskListAttachments(task);
+	}
+}
+
+function getTaskListProperties(task) {
+	var ret = "";
+	if (task.properties) {
+		for (var k in task.properties) {
+			ret += k + "=" + task.properties[k] + "<br/>"; 
+		}
+	}
+	return ret;
+}
+
+function getTaskListAttachments(task) {
+	var ret = "";
+	if (task.attachments) {
+		for (var i = 0; i < task.attachments.length; i++) {
+			var stream = task.attachments[i];
+			ret += "<a href='" + stream.url + "'>attachment" + (i+1) + "</a><br/>"; 
+		}
+	}
+	return ret;
+}
+
+function addTask() {
+	var task = new task.app.TaskInfo();
+	task.id = document.getElementById("taskId").value;
+	task.id = document.getElementById("taskUserName").value;
+	task.id = document.getElementById("taskDueDate").value;
+	task.id = document.getElementById("taskTodo").value;
+	blcient.taskService.addTask(task);
+}
+
+
+	
+	
+</script>
+
+<style type="text/css">
+table {border-spacing: 5px;}
+td { background-color:#EEEEEE; }
+</style>
+
 </head>
+
 <body>
-<a href="taskapp">Status</a>
+	<table>
+	    <tr>
+	        <td>Tasklist <input type="button" value="Update"	onclick="updateTaskList()" /> </td>
+	    </tr>
+		<tr>
+			<td>
+				<table id="taskList" >
+					<tr>
+						<td>ID</td>
+						<td>User Name</td>
+						<td>Due Date</td>
+						<td>TODO</td>
+						<td>Properties</td>
+						<td>Attachments</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+	<br>
+	<table >
+	    <tr>
+	        <td>Add Task</td>
+	    </tr>
+		<tr>
+			<td>
+				<table id="taskList" >
+					<tr>
+						<td>ID</td>
+						<td>User Name</td>
+						<td>Due Date</td>
+						<td>TODO</td>
+					</tr>
+					<tr>
+						<td><input id="taskId" /></td>
+						<td><input id="taskUserName" /></td>
+						<td><input id="taskDueDate" /></td>
+						<td><input id="taskTodo" /></td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		<tr>
+		<td> <input type="button" value="Add"	onclick="addTask()" /> </td>
+		</tr>
+	</table>
+	
 </body>
 </html>
