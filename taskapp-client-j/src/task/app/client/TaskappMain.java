@@ -5,16 +5,17 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.net.Authenticator;
 import java.net.PasswordAuthentication;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import task.app.BApiDescriptor_Taskapp;
 import task.app.BClient_Taskapp;
 import task.app.TaskInfo;
 import byps.BContentStream;
+import byps.BContentStreamWrapper;
 import byps.BTransportFactory;
 import byps.BWire;
 import byps.RemoteException;
@@ -90,8 +91,8 @@ public class TaskappMain {
 		
 		try {
 			ArrayList<InputStream> attachments = new ArrayList<InputStream>();
-			attachments.add(new FileInputStream(".project"));
-			attachments.add(new ByteArrayInputStream("Text as stream".getBytes()));
+			attachments.add(new BContentStreamWrapper(new FileInputStream(".project"), "plain/text", -1));
+			attachments.add(new BContentStreamWrapper(new ByteArrayInputStream("Text as stream".getBytes()), "text/plain", -1));
 			t.setAttachments(attachments);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
