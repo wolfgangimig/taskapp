@@ -9,117 +9,121 @@
 <script type="text/javascript" src="taskapp.js"></script>
 
 <script type="text/javascript">
+	var url = "/taskapp-srv/taskapp"
+	var bclient = null;
 
-var url = "/taskapp-srv/taskapp"
-var bclient = null;
+	function init() {
 
-function init() {
-	
-	var wire = new byps.BWireClient(url, 0, 120);
-	wire.getServletPathForNegotiationAndAuthentication = function() {
-		return "/taskappauth/auth";
+		var wire = new byps.BWireClient(url, 0, 120);
+		wire.getServletPathForNegotiationAndAuthentication = function() {
+			return "/taskappauth/auth";
+		};
+
+		var transportFactory = new byps.BTransportFactory(
+				task.app.BApiDescriptor_Taskapp.instance(), wire, 1);
+
+		this.bclient = task.app.createClient_Taskapp(transportFactory);
+
+		this.bclient.start();
+	}
+
+	window.onload = function() {
+		init();
+	}
+
+	function done() {
+		if (bclient) {
+			bclient.done();
+		}
+	}
+
+	window.onbeforeunload = function() {
+		done();
 	};
-	
-	var transportFactory = new byps.BTransportFactory(
-			task.app.BApiDescriptor_Taskapp.instance(), 
-			wire, 1);
-			
-	this.bclient = task.app.createClient_Taskapp(transportFactory);
-	
-	this.bclient.start();
-} 
 
-window.onload = function() {
-	init();
-}
+	function updateTaskList() {
 
-function done() {
-	if (bclient) {
-		bclient.done();
-	}
-}
+		// get tasks from server
+		var tasks = bclient.taskService.getTasks();
 
-window.onbeforeunload = function() {
-	done();
-};
+		var tab = document.getElementById("taskList");
 
-function updateTaskList() {
-	
-	// get tasks from server
-	var tasks = bclient.taskService.getTasks();
-	
-	var tab = document.getElementById("taskList");
-	
-	// clear all data rows
-	while (tab.rows.length > 1) tab.deleteRow(1);
+		// clear all data rows
+		while (tab.rows.length > 1)
+			tab.deleteRow(1);
 
-	// insert rows
-	for (var i = 0; i < tasks.length; i++) {
-		var task = tasks[i];
-		var colIdx = 0;
-		var row = tab.insertRow(tab.rows.length);
-		row.insertCell(colIdx++).innerHTML = task.id;
-		row.insertCell(colIdx++).innerHTML = task.userName;
-		row.insertCell(colIdx++).innerHTML = task.dueDate;
-		row.insertCell(colIdx++).innerHTML = task.todo;
-		row.insertCell(colIdx++).innerHTML = getTaskListProperties(task);
-		row.insertCell(colIdx++).innerHTML = getTaskListAttachments(task);
-	}
-}
-
-function getTaskListProperties(task) {
-	var ret = "";
-	if (task.properties) {
-		for (var k in task.properties) {
-			ret += k + "=" + task.properties[k] + "<br/>"; 
+		// insert rows
+		for (var i = 0; i < tasks.length; i++) {
+			var task = tasks[i];
+			var colIdx = 0;
+			var row = tab.insertRow(tab.rows.length);
+			row.insertCell(colIdx++).innerHTML = task.id;
+			row.insertCell(colIdx++).innerHTML = task.userName;
+			row.insertCell(colIdx++).innerHTML = task.dueDate;
+			row.insertCell(colIdx++).innerHTML = task.todo;
+			row.insertCell(colIdx++).innerHTML = getTaskListProperties(task);
+			row.insertCell(colIdx++).innerHTML = getTaskListAttachments(task);
 		}
 	}
-	return ret;
-}
 
-function getTaskListAttachments(task) {
-	var ret = "";
-	if (task.attachments) {
-		for (var i = 0; i < task.attachments.length; i++) {
-			var stream = task.attachments[i];
-			ret += "<a href='" + stream.url + "'>attachment" + (i+1) + "</a><br/>"; 
+	function getTaskListProperties(task) {
+		var ret = "";
+		if (task.properties) {
+			for ( var k in task.properties) {
+				ret += k + "=" + task.properties[k] + "<br/>";
+			}
 		}
+		return ret;
 	}
-	return ret;
-}
 
-function addTask() {
-	var t = new task.app.TaskInfo();
-	t.id = document.getElementById("taskId").value;
-	t.userName = document.getElementById("taskUserName").value;
-	t.dueDate = new Date(document.getElementById("taskDueDate").value);
-	t.todo = document.getElementById("taskTodo").value;
-	
-	bclient.taskService.addTask(t, function(result, ex) {
-		if (ex) alert(ex);
-	});
-}
+	function getTaskListAttachments(task) {
+		var ret = "";
+		if (task.attachments) {
+			for (var i = 0; i < task.attachments.length; i++) {
+				var stream = task.attachments[i];
+				ret += "<a href='" + stream.url + "'>attachment" + (i + 1)
+						+ "</a><br/>";
+			}
+		}
+		return ret;
+	}
 
+	function addTask() {
+		var t = new task.app.TaskInfo();
+		t.id = document.getElementById("taskId").value;
+		t.userName = document.getElementById("taskUserName").value;
+		t.dueDate = new Date(document.getElementById("taskDueDate").value);
+		t.todo = document.getElementById("taskTodo").value;
 
-	
-	
+		bclient.taskService.addTask(t, function(result, ex) {
+			if (ex)
+				alert(ex);
+		});
+	}
 </script>
 
 <style type="text/css">
-table {border-spacing: 5px;}
-td { background-color:#EEEEEE; }
+table {
+	border-spacing: 5px;
+}
+
+td {
+	background-color: #EEEEEE;
+}
 </style>
 
 </head>
 
 <body>
 	<table>
-	    <tr>
-	        <td>Tasklist <input type="button" value="Update"	onclick="updateTaskList()" /> </td>
-	    </tr>
+		<tr>
+			<td>Tasklist <input type="button" value="Update"
+				onclick="updateTaskList()" />
+			</td>
+		</tr>
 		<tr>
 			<td>
-				<table id="taskList" >
+				<table id="taskList">
 					<tr>
 						<td>ID</td>
 						<td>User Name</td>
@@ -133,13 +137,13 @@ td { background-color:#EEEEEE; }
 		</tr>
 	</table>
 	<br>
-	<table >
-	    <tr>
-	        <td>Add Task</td>
-	    </tr>
+	<table>
+		<tr>
+			<td>Add Task</td>
+		</tr>
 		<tr>
 			<td>
-				<table id="taskList" >
+				<table id="taskList">
 					<tr>
 						<td>ID</td>
 						<td>User Name</td>
@@ -147,7 +151,7 @@ td { background-color:#EEEEEE; }
 						<td>TODO</td>
 					</tr>
 					<tr>
-						<td><input id="taskId" /> </td>
+						<td><input id="taskId" /></td>
 						<td><input id="taskUserName" /></td>
 						<td><input id="taskDueDate" /></td>
 						<td><input id="taskTodo" /></td>
@@ -156,9 +160,8 @@ td { background-color:#EEEEEE; }
 			</td>
 		</tr>
 		<tr>
-		<td> <input type="button" value="Add"	onclick="addTask()" /> </td>
+			<td><input type="button" value="Add" onclick="addTask()" /></td>
 		</tr>
 	</table>
-	
 </body>
 </html>
