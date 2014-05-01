@@ -1,6 +1,7 @@
 package task.app.srv;
 
 import java.io.File;
+import java.util.concurrent.ConcurrentHashMap;
 
 import javax.servlet.http.HttpSession;
 
@@ -16,6 +17,7 @@ import byps.http.HSession;
 public class TaskappSession extends HSession {
 	
 	private final BServer_Taskapp bserver;
+	final static ConcurrentHashMap<String, TaskappSession> userSessions = new ConcurrentHashMap<String, TaskappSession>();
 
 	// Append the JSON serializer registry to the API descriptor
 	public final static BApiDescriptor apiDesc = 
@@ -25,7 +27,8 @@ public class TaskappSession extends HSession {
 	public TaskappSession(HttpSession hsess, String remoteUser, File tempDir,
 			BServerRegistry stubRegistry) {
 		super(hsess, remoteUser, tempDir, stubRegistry);
-		
+		userSessions.put(remoteUser, this);
+
 		// Create the BServer object
 		BTransportFactory transportFactory = getTransportFactory(apiDesc);
 		bserver = BServer_Taskapp.createServer(transportFactory);
@@ -35,6 +38,7 @@ public class TaskappSession extends HSession {
 
 		// Mark session valid
 		setSessionAuthenticated();
+		
 	}
 
 	@Override
@@ -42,4 +46,10 @@ public class TaskappSession extends HSession {
 		return bserver;
 	}
 
+	@Override
+	public void done() {
+		userSessions.remove(super.getRemoteUser());
+		super.done();
+	}
+	
 }
