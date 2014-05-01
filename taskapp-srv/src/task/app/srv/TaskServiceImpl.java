@@ -77,6 +77,7 @@ public class TaskServiceImpl extends BSkeleton_TaskService {
 				BContentStream ns;
 				try {
 					ns = ((BContentStream)is).cloneInputStream();
+					ns.setContentDisposition("task-" + t.getId(), true);
 					nstreams.add(ns);
 				} catch (IOException e) {
 					throw new RemoteException("Failed to clone stream.", e);
