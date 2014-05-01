@@ -13,10 +13,6 @@
 var url = "/taskapp-srv/taskapp"
 var bclient = null;
 
-window.onload = function() {
-	init();
-}
-
 function init() {
 	
 	var wire = new byps.BWireClient(url, 0, 120);
@@ -33,9 +29,9 @@ function init() {
 	this.bclient.start();
 } 
 
-window.onbeforeunload = function() {
-	done();
-};
+window.onload = function() {
+	init();
+}
 
 function done() {
 	if (bclient) {
@@ -43,14 +39,21 @@ function done() {
 	}
 }
 
+window.onbeforeunload = function() {
+	done();
+};
+
 function updateTaskList() {
+	
+	// get tasks from server
+	var tasks = bclient.taskService.getTasks();
+	
 	var tab = document.getElementById("taskList");
 	
-	// clear all rows
+	// clear all data rows
 	while (tab.rows.length > 1) tab.deleteRow(1);
 
 	// insert rows
-	var tasks = bclient.taskService.getTasks();
 	for (var i = 0; i < tasks.length; i++) {
 		var task = tasks[i];
 		var colIdx = 0;
@@ -86,12 +89,15 @@ function getTaskListAttachments(task) {
 }
 
 function addTask() {
-	var task = new task.app.TaskInfo();
-	task.id = document.getElementById("taskId").value;
-	task.id = document.getElementById("taskUserName").value;
-	task.id = document.getElementById("taskDueDate").value;
-	task.id = document.getElementById("taskTodo").value;
-	blcient.taskService.addTask(task);
+	var t = new task.app.TaskInfo();
+	t.id = document.getElementById("taskId").value;
+	t.userName = document.getElementById("taskUserName").value;
+	t.dueDate = new Date(document.getElementById("taskDueDate").value);
+	t.todo = document.getElementById("taskTodo").value;
+	
+	bclient.taskService.addTask(t, function(result, ex) {
+		if (ex) alert(ex);
+	});
 }
 
 
