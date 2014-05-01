@@ -2,10 +2,10 @@ package task.app;
 
 import java.util.List;
 
-import byps.BRemote;
+import byps.Remote;
 import byps.RemoteException;
 
-public interface TaskService extends BRemote {
+public interface TaskService extends Remote {
 
 	void addTask(TaskInfo task) throws RemoteException;
 	

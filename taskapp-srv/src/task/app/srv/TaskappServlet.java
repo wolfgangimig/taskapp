@@ -23,7 +23,7 @@ import byps.http.HSession;
 		// mandatory: must be true
 		asyncSupported = true,
 
-		// mandatory: server URL pattern
+		// mandatory: server URL patterns
 		urlPatterns = { "/taskapp" }
 )
 public class TaskappServlet extends HHttpServlet {
