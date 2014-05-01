@@ -31,6 +31,16 @@
 		init();
 	}
 
+	function done() {
+		if (bclient) {
+			bclient.done();
+		}
+	}
+
+	window.onbeforeunload = function() {
+		done();
+	};
+
 	function updateTaskList() {
 
 		// get tasks from server
