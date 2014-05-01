@@ -31,16 +31,6 @@
 		init();
 	}
 
-	function done() {
-		if (bclient) {
-			bclient.done();
-		}
-	}
-
-	window.onbeforeunload = function() {
-		done();
-	};
-
 	function updateTaskList() {
 
 		// get tasks from server
@@ -54,18 +44,21 @@
 
 		// insert rows
 		for (var i = 0; i < tasks.length; i++) {
-			var task = tasks[i];
-			var colIdx = 0;
-			var row = tab.insertRow(tab.rows.length);
-			row.insertCell(colIdx++).innerHTML = task.id;
-			row.insertCell(colIdx++).innerHTML = task.userName;
-			row.insertCell(colIdx++).innerHTML = task.dueDate;
-			row.insertCell(colIdx++).innerHTML = task.todo;
-			row.insertCell(colIdx++).innerHTML = getTaskListProperties(task);
-			row.insertCell(colIdx++).innerHTML = getTaskListAttachments(task);
+			insertTaskRow(tab, tasks[i]);
 		}
 	}
 
+	function insertTaskRow(tab, task) {
+		var colIdx = 0;
+		var row = tab.insertRow(tab.rows.length);
+		row.insertCell(colIdx++).innerHTML = task.id;
+		row.insertCell(colIdx++).innerHTML = task.userName;
+		row.insertCell(colIdx++).innerHTML = task.dueDate;
+		row.insertCell(colIdx++).innerHTML = task.todo;
+		row.insertCell(colIdx++).innerHTML = getTaskListProperties(task);
+		row.insertCell(colIdx++).innerHTML = getTaskListAttachments(task);
+	}
+	
 	function getTaskListProperties(task) {
 		var ret = "";
 		if (task.properties) {
