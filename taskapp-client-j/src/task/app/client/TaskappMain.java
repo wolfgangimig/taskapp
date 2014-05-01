@@ -1,7 +1,7 @@
 package task.app.client;
 
 import java.io.ByteArrayInputStream;
-import java.io.FileInputStream;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -91,16 +91,21 @@ public class TaskappMain {
 		properties.put("CUSTOMER", "67890");
 		t.setProperties(properties);
 		
+		addAttachments(t);
+		
+		bclient.getTaskService().addTask(t);
+	}
+	
+	private static ArrayList<InputStream> addAttachments(TaskInfo t) {
+		ArrayList<InputStream> attachments = new ArrayList<InputStream>();
 		try {
-			ArrayList<InputStream> attachments = new ArrayList<InputStream>();
-			attachments.add(new BContentStreamWrapper(new FileInputStream(".project"), "plain/text", -1));
-			attachments.add(new BContentStreamWrapper(new ByteArrayInputStream("Text as stream".getBytes()), "text/plain", -1));
+			attachments.add(new BContentStreamWrapper(new File(".project")).setContentType("text/plain"));
+			attachments.add(new BContentStreamWrapper(new ByteArrayInputStream("Text as stream".getBytes())).setContentType("text/plain"));
 			t.setAttachments(attachments);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-		
-		bclient.getTaskService().addTask(t);
+		return attachments;
 	}
 	
 	private static void listTasks(BClient_Taskapp bclient) throws RemoteException {
