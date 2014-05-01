@@ -31,6 +31,16 @@
 		init();
 	}
 
+	function done() {
+		if (bclient) {
+			bclient.done();
+		}
+	}
+
+	window.onbeforeunload = function() {
+		done();
+	};
+	
 	function updateTaskList() {
 
 		// get tasks from server
@@ -74,8 +84,8 @@
 		if (task.attachments) {
 			for (var i = 0; i < task.attachments.length; i++) {
 				var stream = task.attachments[i];
-				ret += "<a href='" + stream.url + "'>attachment" + (i + 1)
-						+ "</a><br/>";
+				ret += "<a target='_blank' +
+						"href='" + stream.url + "'>attachment" + (i + 1)	+ "</a><br/>";
 			}
 		}
 		return ret;
