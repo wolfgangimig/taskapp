@@ -9,7 +9,9 @@ import java.util.List;
 import task.app.BClient_Taskapp;
 import task.app.BSkeleton_TaskService;
 import task.app.TaskInfo;
+import byps.BAsyncResult;
 import byps.BContentStream;
+import byps.BException;
 import byps.RemoteException;
 
 public class TaskServiceImpl extends BSkeleton_TaskService {
@@ -38,7 +40,10 @@ public class TaskServiceImpl extends BSkeleton_TaskService {
 		
 		// Notify client 
 		BClient_Taskapp bclient = (BClient_Taskapp) session.getClientR();
-		bclient.getTaskNotify().receiveTask(cloneTask(task));
+		bclient.getTaskNotify().receiveTask(cloneTask(task), new BAsyncResult<Integer>() {
+			public void setAsyncResult(Integer result, Throwable ex) {
+			}
+		});
 		
 	}
 
