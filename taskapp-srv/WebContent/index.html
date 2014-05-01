@@ -100,6 +100,49 @@
 				alert(ex);
 		});
 	}
+	
+function onUploadResult() {
+	
+	// Get DOM object of iframe body
+	var iFrameBody;
+	var iFrame = document.getElementById('uploadResultFrame');
+	if (iFrame.contentDocument) { // FF
+		iFrameBody = iFrame.contentDocument.getElementsByTagName('body')[0];
+	} else if (iFrame.contentWindow) { // IE
+		iFrameBody = iFrame.contentWindow.document.getElementsByTagName('body')[0];
+	}
+	
+	// Stream IDs are in the iframe's body
+	var ret = iFrameBody.innerHTML;
+	if (ret) {
+
+		// Obtain stream IDs in an array
+		var streamIds = JSON.parse(ret);
+		
+		// Create BContentStream objects
+		var attachments = [];
+		for (var i = 0; i < streamIds.length; i++) {
+			attachments[i] = new byps.BContentStream();
+			attachments[i].streamId = streamIds[i];
+		}
+		
+		// Add new task
+		var t = new task.app.TaskInfo();
+		t.id = document.getElementById("taskId").value;
+		t.userName = document.getElementById("taskUserName").value;
+		t.dueDate = new Date(document.getElementById("taskDueDate").value);
+		t.todo = document.getElementById("taskTodo").value;
+		t.attachments = attachments;
+
+		bclient.taskService.addTask(t, function(result, ex) {
+			if (ex)
+				alert(ex);
+		});
+	}
+
+	return ret;
+}
+	
 </script>
 
 <style type="text/css">
@@ -137,31 +180,41 @@ td {
 		</tr>
 	</table>
 	<br>
-	<table>
-		<tr>
-			<td>Add Task</td>
-		</tr>
-		<tr>
-			<td>
-				<table id="taskList">
-					<tr>
-						<td>ID</td>
-						<td>User Name</td>
-						<td>Due Date</td>
-						<td>TODO</td>
-					</tr>
-					<tr>
-						<td><input id="taskId" /></td>
-						<td><input id="taskUserName" /></td>
-						<td><input id="taskDueDate" /></td>
-						<td><input id="taskTodo" /></td>
-					</tr>
-				</table>
-			</td>
-		</tr>
-		<tr>
-			<td><input type="button" value="Add" onclick="addTask()" /></td>
-		</tr>
-	</table>
+	<form id="addTaskForm" method="post" enctype="multipart/form-data"
+		action="/taskapp-srv/taskapp?uploadHandler=htmlform"
+		target="uploadResultFrame">
+		<table>
+			<tr>
+				<td>Add Task</td>
+			</tr>
+			<tr>
+				<td>
+					<table id="taskList">
+						<tr>
+							<td>ID</td>
+							<td>User Name</td>
+							<td>Due Date</td>
+							<td>TODO</td>
+							<td>Attachments</td>
+						</tr>
+						<tr>
+							<td><input id="taskId" /></td>
+							<td><input id="taskUserName" /></td>
+							<td><input id="taskDueDate" /></td>
+							<td><input id="taskTodo" /></td>
+							<td><input id="taskAtts" name="files[]" type="file" multiple></td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td><input type="submit" value="Add" /></td>
+			</tr>
+		</table>
+		<iframe id="uploadResultFrame" name="uploadResultFrame"
+			onload="onUploadResult()" style="visibility: hidden; display: none">
+		</iframe>
+	</form>
+
 </body>
 </html>
