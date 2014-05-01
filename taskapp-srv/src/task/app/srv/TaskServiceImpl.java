@@ -37,8 +37,8 @@ public class TaskServiceImpl extends BSkeleton_TaskService {
 		}
 		
 		// Notify client 
-//		BClient_Taskapp bclient = (BClient_Taskapp) session.getClientR();
-//		bclient.getTaskNotify().receiveTask(cloneTask(task));
+		BClient_Taskapp bclient = (BClient_Taskapp) session.getClientR();
+		bclient.getTaskNotify().receiveTask(cloneTask(task));
 		
 	}
 

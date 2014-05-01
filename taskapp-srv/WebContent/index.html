@@ -11,6 +11,18 @@
 <script type="text/javascript">
 	var url = "/taskapp-srv/taskapp"
 	var bclient = null;
+	
+	// Implementation of TaskNotify
+	var TaskNotifyImpl = function() {
+		
+		this.receiveTask = function(task) {
+			var tab = document.getElementById("taskList");
+			insertTaskRow(tab, task);
+		};
+		
+	};
+	TaskNotifyImpl.prototype = new task.app.BSkeleton_TaskNotify();
+
 
 	function init() {
 
@@ -23,6 +35,8 @@
 				task.app.BApiDescriptor_Taskapp.instance(), wire, 1);
 
 		this.bclient = task.app.createClient_Taskapp(transportFactory);
+		
+		this.bclient.addRemote(new TaskNotifyImpl());
 
 		this.bclient.start();
 	}
@@ -37,7 +51,7 @@
 		}
 	}
 
-	window.onbeforeunload = function() {
+	window.onbeforeunload = function(event) {
 		done();
 	};
 
@@ -55,15 +69,19 @@
 		// insert rows
 		for (var i = 0; i < tasks.length; i++) {
 			var task = tasks[i];
-			var colIdx = 0;
-			var row = tab.insertRow(tab.rows.length);
-			row.insertCell(colIdx++).innerHTML = task.id;
-			row.insertCell(colIdx++).innerHTML = task.userName;
-			row.insertCell(colIdx++).innerHTML = task.dueDate;
-			row.insertCell(colIdx++).innerHTML = task.todo;
-			row.insertCell(colIdx++).innerHTML = getTaskListProperties(task);
-			row.insertCell(colIdx++).innerHTML = getTaskListAttachments(task);
+			insertTaskRow(tab, task);
 		}
+	}
+	
+	function insertTaskRow(tab, task) {
+		var colIdx = 0;
+		var row = tab.insertRow(tab.rows.length);
+		row.insertCell(colIdx++).innerHTML = task.id;
+		row.insertCell(colIdx++).innerHTML = task.userName;
+		row.insertCell(colIdx++).innerHTML = task.dueDate;
+		row.insertCell(colIdx++).innerHTML = task.todo;
+		row.insertCell(colIdx++).innerHTML = getTaskListProperties(task);
+		row.insertCell(colIdx++).innerHTML = getTaskListAttachments(task);
 	}
 
 	function getTaskListProperties(task) {
@@ -81,7 +99,7 @@
 		if (task.attachments) {
 			for (var i = 0; i < task.attachments.length; i++) {
 				var stream = task.attachments[i];
-				ret += "<a href='" + stream.url + "'>attachment" + (i + 1)
+				ret += "<a target='_blank' href='" + stream.url + "'>attachment" + (i + 1)
 						+ "</a><br/>";
 			}
 		}
