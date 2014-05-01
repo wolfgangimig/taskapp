@@ -11,7 +11,6 @@ import task.app.BSkeleton_TaskService;
 import task.app.TaskInfo;
 import byps.BAsyncResult;
 import byps.BContentStream;
-import byps.BException;
 import byps.RemoteException;
 
 public class TaskServiceImpl extends BSkeleton_TaskService {
