@@ -84,7 +84,8 @@
 		if (task.attachments) {
 			for (var i = 0; i < task.attachments.length; i++) {
 				var stream = task.attachments[i];
-				ret += "<a href='" + stream.url + "'>attachment" + (i + 1)
+				ret += "<a target='_blank' " 
+						+ "href='" + stream.url + "'>attachment" + (i + 1)
 						+ "</a><br/>";
 			}
 		}
