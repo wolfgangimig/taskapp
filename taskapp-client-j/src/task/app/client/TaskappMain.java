@@ -97,8 +97,12 @@ public class TaskappMain {
 	private static ArrayList<InputStream> addAttachments(TaskInfo t) {
 		ArrayList<InputStream> attachments = new ArrayList<InputStream>();
 		try {
-			attachments.add(new BContentStreamWrapper(new File(".project")).setContentType("text/plain"));
-			attachments.add(new BContentStreamWrapper(new ByteArrayInputStream("Text as stream".getBytes())).setContentType("text/plain"));
+			BContentStream strm1 = new BContentStreamWrapper(new File(".project"));
+			strm1.setContentType("text/plain");
+			BContentStream strm2 = new BContentStreamWrapper(new ByteArrayInputStream("Text as stream".getBytes()));
+			strm2.setContentType("text/plain");
+			attachments.add(strm1);
+			attachments.add(strm2);
 			t.setAttachments(attachments);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();

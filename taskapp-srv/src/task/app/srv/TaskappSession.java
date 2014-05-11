@@ -11,6 +11,7 @@ import byps.BApiDescriptor;
 import byps.BServer;
 import byps.BServerRegistry;
 import byps.BTransportFactory;
+import byps.http.HServerContext;
 import byps.http.HSession;
 
 public class TaskappSession extends HSession {
@@ -22,9 +23,8 @@ public class TaskappSession extends HSession {
 			BApiDescriptor_Taskapp.instance()
 				.addRegistry(new JRegistry_Taskapp());
 	
-	public TaskappSession(HttpSession hsess, String remoteUser, File tempDir,
-			BServerRegistry stubRegistry) {
-		super(hsess, remoteUser, tempDir, stubRegistry);
+	public TaskappSession(HttpSession hsess, String remoteUser, HServerContext serverContext) {
+		super(hsess, remoteUser, serverContext);
 		
 		// Create the BServer object
 		BTransportFactory transportFactory = getTransportFactory(apiDesc);
