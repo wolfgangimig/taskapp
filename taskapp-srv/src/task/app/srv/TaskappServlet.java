@@ -23,7 +23,7 @@ import byps.http.HSession;
 		// mandatory: must be true
 		asyncSupported = true,
 
-		// mandatory: server URL pattern
+		// mandatory: server URL patterns
 		urlPatterns = { "/taskapp" }
 )
 public class TaskappServlet extends HHttpServlet {
@@ -40,11 +40,10 @@ public class TaskappServlet extends HHttpServlet {
 
 	@Override
 	protected HSession createSession(HttpServletRequest request,
-			HttpServletResponse response, HttpSession hsess,
-			BServerRegistry serverRegistry) throws BException {
+			HttpServletResponse response, HttpSession hsess) throws BException {
 	    String remoteUser = request.getRemoteUser();
 	    if (remoteUser == null) throw new BException(BExceptionC.FORBIDDEN, "Missing remote user attribute.");
-	    return new TaskappSession(hsess, remoteUser, null, serverRegistry);
+	    return new TaskappSession(hsess, remoteUser, this);
 	}
 
 	@Override
@@ -53,7 +52,7 @@ public class TaskappServlet extends HHttpServlet {
 	}
 
 	@Override
-	protected HConfig getConfig() {
+	public HConfig getConfig() {
 		return config;
 	}
 
