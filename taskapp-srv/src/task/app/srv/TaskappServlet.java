@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import byps.BApiDescriptor;
+import byps.BException;
+import byps.BExceptionC;
 import byps.BServerRegistry;
 import byps.http.HConfig;
 import byps.http.HConfigImpl;
@@ -38,10 +40,10 @@ public class TaskappServlet extends HHttpServlet {
 
 	@Override
 	protected HSession createSession(HttpServletRequest request,
-			HttpServletResponse response, HttpSession hsess,
-			BServerRegistry serverRegistry) {
+			HttpServletResponse response, HttpSession hsess) throws BException {
 	    String remoteUser = request.getRemoteUser();
-	    return new TaskappSession(hsess, remoteUser, null, serverRegistry);
+	    if (remoteUser == null) throw new BException(BExceptionC.FORBIDDEN, "Missing remote user attribute.");
+	    return new TaskappSession(hsess, remoteUser, this);
 	}
 
 	@Override
@@ -50,7 +52,7 @@ public class TaskappServlet extends HHttpServlet {
 	}
 
 	@Override
-	protected HConfig getConfig() {
+	public HConfig getConfig() {
 		return config;
 	}
 
