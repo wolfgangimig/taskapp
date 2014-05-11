@@ -71,6 +71,23 @@
 		row.insertCell(colIdx++).innerHTML = task.todo;
 		row.insertCell(colIdx++).innerHTML = getTaskListProperties(task);
 		row.insertCell(colIdx++).innerHTML = getTaskListAttachments(task);
+		
+		var btnId = "btn" + tab.rows.length;
+		row.insertCell(colIdx++).innerHTML = '<input type="button" id="' + btnId + '" '
+				+ 'value="compute" onclick="computeChecksum(' +task.id + ')" />';
+	}
+	
+	function computeChecksum(taskId) {
+		var atts = bclient.taskService.getTaskAttachments(taskId);
+		var calc = bclient.taskService.getCalculationService();
+		if (calc) {
+			calc.computeSimpleChecksum(atts, function(sum, ex) {
+				alert("Checksum=" + sum + ", error=" + ex);
+			});
+		}
+		else {
+			alert("Calculation service not connected.");
+		}
 	}
 
 	function getTaskListProperties(task) {
@@ -181,6 +198,7 @@ td {
 						<td>TODO</td>
 						<td>Properties</td>
 						<td>Attachments</td>
+						<td>Checksum</td>
 					</tr>
 				</table>
 			</td>

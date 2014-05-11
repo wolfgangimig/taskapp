@@ -46,5 +46,49 @@ public class BStub_TaskService extends BStub implements TaskServiceAsync, java.i
 		transport.sendMethod(req, asyncResult);
 	}
 	
+	// checkpoint byps.gen.j.PrintContext:365
+	public void registerCalculationService(CalculationService calc) throws RemoteException {
+		// checkpoint byps.gen.j.GenRemoteStub:46
+		final BSyncResult<Object> asyncResult = new BSyncResult<Object>();		
+		registerCalculationService(calc, asyncResult);
+		asyncResult.getResult();		
+	}
+	// checkpoint byps.gen.j.PrintContext:409
+	public void registerCalculationService(CalculationService calc, final BAsyncResult<Object> asyncResult) {
+		// checkpoint byps.gen.j.GenRemoteStub:113
+		BRequest_TaskService_registerCalculationService req = new BRequest_TaskService_registerCalculationService();		
+		req.calc = calc;
+		transport.sendMethod(req, asyncResult);
+	}
+	
+	// checkpoint byps.gen.j.PrintContext:365
+	public CalculationService getCalculationService() throws RemoteException {
+		// checkpoint byps.gen.j.GenRemoteStub:46
+		final BSyncResult<CalculationService> asyncResult = new BSyncResult<CalculationService>();		
+		getCalculationService(asyncResult);
+		return asyncResult.getResult();		
+	}
+	// checkpoint byps.gen.j.PrintContext:409
+	public void getCalculationService(final BAsyncResult<CalculationService> asyncResult) {
+		// checkpoint byps.gen.j.GenRemoteStub:113
+		BRequest_TaskService_getCalculationService req = new BRequest_TaskService_getCalculationService();		
+		transport.sendMethod(req, asyncResult);
+	}
+	
+	// checkpoint byps.gen.j.PrintContext:365
+	public java.util.List<java.io.InputStream> getTaskAttachments(int taskId) throws RemoteException {
+		// checkpoint byps.gen.j.GenRemoteStub:46
+		final BSyncResult<java.util.List<java.io.InputStream>> asyncResult = new BSyncResult<java.util.List<java.io.InputStream>>();		
+		getTaskAttachments(taskId, asyncResult);
+		return asyncResult.getResult();		
+	}
+	// checkpoint byps.gen.j.PrintContext:409
+	public void getTaskAttachments(int taskId, final BAsyncResult<java.util.List<java.io.InputStream>> asyncResult) {
+		// checkpoint byps.gen.j.GenRemoteStub:113
+		BRequest_TaskService_getTaskAttachments req = new BRequest_TaskService_getTaskAttachments();		
+		req.taskId = taskId;
+		transport.sendMethod(req, asyncResult);
+	}
+	
 	
 }

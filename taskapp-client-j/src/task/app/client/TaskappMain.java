@@ -11,6 +11,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 import task.app.BApiDescriptor_Taskapp;
 import task.app.BClient_Taskapp;
 import task.app.TaskInfo;
@@ -45,6 +48,9 @@ public class TaskappMain {
 			else if (command.equals("-list")) {
 				listTasks(bclient);
 			}
+			else if (command.equals("-calc")) {
+				calc(bclient);
+			}
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -55,7 +61,22 @@ public class TaskappMain {
 			}
 		}
 	}
-	
+
+	private static void calc(BClient_Taskapp bclient) throws RemoteException, InterruptedException {
+		JFrame frame = new JFrame();
+		try {
+			CalculationServiceImpl calc = new CalculationServiceImpl();
+			bclient.addRemote(calc);
+			bclient.getTaskService().registerCalculationService(calc);
+
+			JOptionPane.showMessageDialog(frame, "Waiting for calculation requests.");
+		}
+		finally {
+			bclient.getTaskService().registerCalculationService(null);
+			frame.dispose();
+		}
+	}
+
 	private static BClient_Taskapp createClient(String url) {
 		
 		BWire wire = new HWireClient(url, 0, 120, null) {

@@ -21,6 +21,10 @@ namespace task.app
 			return this;
 		}
 		
+		public virtual CalculationService CalculationService
+		{
+			get { return calculationServiceVal; }
+		}
 		public virtual TaskNotify TaskNotify
 		{
 			get { return taskNotifyVal; }
@@ -31,6 +35,7 @@ namespace task.app
 		}
 		
 		public override BRemote getStub(int remoteId) {
+			if (remoteId == 1984352081) return calculationServiceVal;
 			if (remoteId == 265418285) return taskNotifyVal;
 			if (remoteId == 216769899) return taskServiceVal;
 			return null;
@@ -53,10 +58,12 @@ namespace task.app
 			initStubs(transportVal);
 		}
 		
+		protected CalculationService calculationServiceVal;
 		protected TaskNotify taskNotifyVal;
 		protected TaskService taskServiceVal;
 		
 		private void initStubs(BTransport transport) {
+			calculationServiceVal = new BStub_CalculationService(transport);
 			taskNotifyVal = new BStub_TaskNotify(transport);
 			taskServiceVal = new BStub_TaskService(transport);
 		}

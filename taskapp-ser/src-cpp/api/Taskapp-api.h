@@ -39,6 +39,10 @@ namespace task {
 
 	namespace app {
 	
+		// task.app.BStub_CalculationService
+		class BStub_CalculationService; 
+		typedef byps_ptr< BStub_CalculationService > PStub_CalculationService; 
+		
 		// task.app.BStub_TaskNotify
 		class BStub_TaskNotify; 
 		typedef byps_ptr< BStub_TaskNotify > PStub_TaskNotify; 
@@ -50,6 +54,10 @@ namespace task {
 		// task.app.TaskInfo
 		class TaskInfo; 
 		typedef byps_ptr< TaskInfo > PTaskInfo; 
+		
+		// task.app.CalculationService
+		class CalculationService; 
+		typedef byps_ptr< CalculationService > PCalculationService; 
 		
 		// task.app.TaskNotify
 		class TaskNotify; 
@@ -105,6 +113,45 @@ class TaskInfo : public BSerializable {
 };
 
 }}
+
+//-------------------------------------------------
+// CalculationService
+
+namespace task { namespace app { 
+
+using namespace ::byps;
+
+class CalculationService : public virtual BRemote {
+	
+	public: virtual int32_t computeSimpleChecksum(const byps::PVectorInputStream& streams)  = 0;
+	public: virtual void computeSimpleChecksum(const byps::PVectorInputStream& streams, ::std::function< void (int32_t, BException ex) > asyncResult)  = 0;
+	
+	
+};
+
+}}
+//-------------------------------------------------
+// Stub class BStub_CalculationService
+
+namespace task { namespace app { 
+
+using namespace ::byps;
+
+class BStub_CalculationService;
+typedef byps_ptr<BStub_CalculationService> PStub_CalculationService;
+
+class BStub_CalculationService : public BStub, public virtual CalculationService {
+	
+	public: BStub_CalculationService(PTransport transport);	
+	
+	public: virtual BTYPEID BSerializable_getTypeId() { return 1984352081; }
+	
+	public: virtual int32_t computeSimpleChecksum(const byps::PVectorInputStream& streams) ;
+	public: virtual void computeSimpleChecksum(const byps::PVectorInputStream& streams, ::std::function< void (int32_t, BException ex) > asyncResult) ;
+	
+};
+}}
+
 
 //-------------------------------------------------
 // TaskNotify
@@ -183,6 +230,15 @@ class TaskService : public virtual BRemote {
 	public: virtual PVectorTaskInfo getTasks()  = 0;
 	public: virtual void getTasks(::std::function< void (PVectorTaskInfo, BException ex) > asyncResult)  = 0;
 	
+	public: virtual void registerCalculationService(const PCalculationService& calc)  = 0;
+	public: virtual void registerCalculationService(const PCalculationService& calc, ::std::function< void (bool, BException ex) > asyncResult)  = 0;
+	
+	public: virtual PCalculationService getCalculationService()  = 0;
+	public: virtual void getCalculationService(::std::function< void (PCalculationService, BException ex) > asyncResult)  = 0;
+	
+	public: virtual byps::PVectorInputStream getTaskAttachments(int32_t taskId)  = 0;
+	public: virtual void getTaskAttachments(int32_t taskId, ::std::function< void (byps::PVectorInputStream, BException ex) > asyncResult)  = 0;
+	
 	
 };
 
@@ -207,6 +263,12 @@ class BStub_TaskService : public BStub, public virtual TaskService {
 	public: virtual void addTask(const PTaskInfo& task, ::std::function< void (bool, BException ex) > asyncResult) ;
 	public: virtual PVectorTaskInfo getTasks() ;
 	public: virtual void getTasks(::std::function< void (PVectorTaskInfo, BException ex) > asyncResult) ;
+	public: virtual void registerCalculationService(const PCalculationService& calc) ;
+	public: virtual void registerCalculationService(const PCalculationService& calc, ::std::function< void (bool, BException ex) > asyncResult) ;
+	public: virtual PCalculationService getCalculationService() ;
+	public: virtual void getCalculationService(::std::function< void (PCalculationService, BException ex) > asyncResult) ;
+	public: virtual byps::PVectorInputStream getTaskAttachments(int32_t taskId) ;
+	public: virtual void getTaskAttachments(int32_t taskId, ::std::function< void (byps::PVectorInputStream, BException ex) > asyncResult) ;
 	
 };
 }}
@@ -257,11 +319,13 @@ class BClient_Taskapp : public BClient {
 	
 	public: virtual ~BClient_Taskapp() {}
 	
+	virtual task::app::PCalculationService getCalculationService();	
 	virtual task::app::PTaskNotify getTaskNotify();	
 	virtual task::app::PTaskService getTaskService();	
 	
 	public: virtual PRemote getStub(int remoteId);
 	
+	protected: task::app::PCalculationService calculationService;
 	protected: task::app::PTaskNotify taskNotify;
 	protected: task::app::PTaskService taskService;
 	

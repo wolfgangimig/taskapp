@@ -24,5 +24,29 @@ public interface TaskServiceAsync extends BRemote,
 	// checkpoint byps.gen.j.PrintContext:409
 	public void getTasks(final BAsyncResult<java.util.List<TaskInfo>> asyncResult) ;
 	
+	/**
+	 * @since 1.0.0.1
+	*/
+	// checkpoint byps.gen.j.PrintContext:365
+	public void registerCalculationService(CalculationService calc) throws RemoteException;
+	// checkpoint byps.gen.j.PrintContext:409
+	public void registerCalculationService(CalculationService calc, final BAsyncResult<Object> asyncResult) ;
+	
+	/**
+	 * @since 1.0.0.1
+	*/
+	// checkpoint byps.gen.j.PrintContext:365
+	public CalculationService getCalculationService() throws RemoteException;
+	// checkpoint byps.gen.j.PrintContext:409
+	public void getCalculationService(final BAsyncResult<CalculationService> asyncResult) ;
+	
+	/**
+	 * @since 1.0.0.1
+	*/
+	// checkpoint byps.gen.j.PrintContext:365
+	public java.util.List<java.io.InputStream> getTaskAttachments(int taskId) throws RemoteException;
+	// checkpoint byps.gen.j.PrintContext:409
+	public void getTaskAttachments(int taskId, final BAsyncResult<java.util.List<java.io.InputStream>> asyncResult) ;
+	
 	
 }

@@ -8,9 +8,12 @@ import java.util.List;
 
 import task.app.BClient_Taskapp;
 import task.app.BSkeleton_TaskService;
+import task.app.CalculationService;
 import task.app.TaskInfo;
 import byps.BAsyncResultIgnored;
 import byps.BContentStream;
+import byps.BException;
+import byps.BExceptionC;
 import byps.RemoteException;
 
 public class TaskServiceImpl extends BSkeleton_TaskService {
@@ -18,10 +21,37 @@ public class TaskServiceImpl extends BSkeleton_TaskService {
 	private TaskappSession session;
 	private String userName;
 	private static HashMap<String, ArrayList<TaskInfo>> tasksOfAllUsers = new HashMap<String, ArrayList<TaskInfo>>();
+	private static CalculationService calculationService;
 	
 	public TaskServiceImpl(TaskappSession sess) {
 		this.session = sess;
 		this.userName = sess.getRemoteUser();
+	}
+	
+	
+	@Override
+	public void registerCalculationService(CalculationService calc)
+			throws RemoteException {
+		calculationService = calc;
+	}
+
+	@Override
+	public CalculationService getCalculationService() throws RemoteException {
+		return calculationService;
+	}
+	
+	@Override
+	public List<InputStream> getTaskAttachments(int taskId) throws RemoteException {
+		
+		List<TaskInfo> tasksOfUser = getTasks();
+		
+		for (TaskInfo t : tasksOfUser) {
+			if (t.getId() == taskId) {
+				return t.getAttachments();
+			}
+		}
+		
+		throw new BException(BExceptionC.INTERNAL, "Task not found");
 	}
 
 	@Override
@@ -92,4 +122,9 @@ public class TaskServiceImpl extends BSkeleton_TaskService {
 		
 		return n;
 	}
+
+
+
+
+
 }

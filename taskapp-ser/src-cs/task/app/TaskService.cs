@@ -14,6 +14,15 @@ namespace task.app
 		IList<TaskInfo> GetTasks();
 		void GetTasks(BAsyncResult<IList<TaskInfo>> asyncResult) ;
 		
+		void RegisterCalculationService(CalculationService calc);
+		void RegisterCalculationService(CalculationService calc, BAsyncResult<Object> asyncResult) ;
+		
+		CalculationService GetCalculationService();
+		void GetCalculationService(BAsyncResult<CalculationService> asyncResult) ;
+		
+		IList<System.IO.Stream> GetTaskAttachments(int taskId);
+		void GetTaskAttachments(int taskId, BAsyncResult<IList<System.IO.Stream>> asyncResult) ;
+		
 		
 	}
 }  // end namespace

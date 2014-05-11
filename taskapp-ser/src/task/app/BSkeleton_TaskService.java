@@ -46,5 +46,47 @@ public class BSkeleton_TaskService extends BSkeleton implements TaskServiceAsync
 		}
 	}
 	
+	// checkpoint byps.gen.j.PrintContext:365
+	public void registerCalculationService(CalculationService calc) throws RemoteException {
+		throw new BException(BExceptionC.UNSUPPORTED_METHOD, "");
+	}
+	// checkpoint byps.gen.j.PrintContext:409
+	public void registerCalculationService(CalculationService calc, final BAsyncResult<Object> asyncResult) {
+		try {
+			registerCalculationService(calc);
+			asyncResult.setAsyncResult(null, null);
+		} catch (Throwable e) {
+			asyncResult.setAsyncResult(null, e);
+		}
+	}
+	
+	// checkpoint byps.gen.j.PrintContext:365
+	public CalculationService getCalculationService() throws RemoteException {
+		throw new BException(BExceptionC.UNSUPPORTED_METHOD, "");
+	}
+	// checkpoint byps.gen.j.PrintContext:409
+	public void getCalculationService(final BAsyncResult<CalculationService> asyncResult) {
+		try {
+			CalculationService ret = getCalculationService();
+			asyncResult.setAsyncResult(ret, null);
+		} catch (Throwable e) {
+			asyncResult.setAsyncResult(null, e);
+		}
+	}
+	
+	// checkpoint byps.gen.j.PrintContext:365
+	public java.util.List<java.io.InputStream> getTaskAttachments(int taskId) throws RemoteException {
+		throw new BException(BExceptionC.UNSUPPORTED_METHOD, "");
+	}
+	// checkpoint byps.gen.j.PrintContext:409
+	public void getTaskAttachments(int taskId, final BAsyncResult<java.util.List<java.io.InputStream>> asyncResult) {
+		try {
+			java.util.List<java.io.InputStream> ret = getTaskAttachments(taskId);
+			asyncResult.setAsyncResult(ret, null);
+		} catch (Throwable e) {
+			asyncResult.setAsyncResult(null, e);
+		}
+	}
+	
 	
 }

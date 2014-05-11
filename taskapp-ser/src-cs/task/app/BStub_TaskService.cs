@@ -33,6 +33,38 @@ namespace task.app
 			transport.sendMethod(req, asyncResult);
 		}
 		
+		public virtual void RegisterCalculationService(CalculationService calc) {
+			BSyncResult<Object> asyncResult = new BSyncResult<Object>();			
+			RegisterCalculationService(calc, BAsyncResultHelper.ToDelegate<Object>(asyncResult));
+			asyncResult.GetResult();			
+		}
+		public virtual void RegisterCalculationService(CalculationService calc, BAsyncResult<Object> asyncResult) {
+			BRequest_TaskService_registerCalculationService req = new BRequest_TaskService_registerCalculationService();			
+			req.calcValue = calc;
+			transport.sendMethod(req, asyncResult);
+		}
+		
+		public virtual CalculationService GetCalculationService() {
+			BSyncResult<CalculationService> asyncResult = new BSyncResult<CalculationService>();			
+			GetCalculationService(BAsyncResultHelper.ToDelegate<CalculationService>(asyncResult));
+			return asyncResult.GetResult();			
+		}
+		public virtual void GetCalculationService(BAsyncResult<CalculationService> asyncResult) {
+			BRequest_TaskService_getCalculationService req = new BRequest_TaskService_getCalculationService();			
+			transport.sendMethod(req, asyncResult);
+		}
+		
+		public virtual IList<System.IO.Stream> GetTaskAttachments(int taskId) {
+			BSyncResult<IList<System.IO.Stream>> asyncResult = new BSyncResult<IList<System.IO.Stream>>();			
+			GetTaskAttachments(taskId, BAsyncResultHelper.ToDelegate<IList<System.IO.Stream>>(asyncResult));
+			return asyncResult.GetResult();			
+		}
+		public virtual void GetTaskAttachments(int taskId, BAsyncResult<IList<System.IO.Stream>> asyncResult) {
+			BRequest_TaskService_getTaskAttachments req = new BRequest_TaskService_getTaskAttachments();			
+			req.taskIdValue = taskId;
+			transport.sendMethod(req, asyncResult);
+		}
+		
 		
 	}
 }
