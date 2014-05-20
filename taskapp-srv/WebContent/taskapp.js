@@ -109,11 +109,11 @@ task.app.BSkeleton_TaskNotify = function() {
 	
 	this.transport = null; // is set in BServer.addRemote
 	
-	this.toJSON = function (key) {
-		return { _typeId : 265418285, targetId : this.transport.targetId };
-	};
 	
-	
+};
+
+task.app.BSkeleton_TaskNotify.prototype.toJSON = function (key) {
+	return { _typeId : 265418285, targetId : this.transport.targetId.toString() };
 };
 
 // checkpoint byps.gen.js.PrintContext:133
@@ -524,13 +524,13 @@ task.app.BRegistry_Taskapp = function() {
 		),
 		
 		// task.app.BStub_CalculationService
-		1984352081 : new byps.BSerializerRemote(task.app.BStub_CalculationService),
+		1984352081 : new byps.BSerializer_16(task.app.BStub_CalculationService),
 		
 		// task.app.BStub_TaskNotify
-		265418285 : new byps.BSerializerRemote(task.app.BStub_TaskNotify),
+		265418285 : new byps.BSerializer_16(task.app.BStub_TaskNotify),
 		
 		// task.app.BStub_TaskService
-		216769899 : new byps.BSerializerRemote(task.app.BStub_TaskService),
+		216769899 : new byps.BSerializer_16(task.app.BStub_TaskService),
 		
 		// task.app.TaskInfo
 		1660464439 : new byps.BSerializer(
