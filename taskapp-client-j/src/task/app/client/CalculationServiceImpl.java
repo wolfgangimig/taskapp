@@ -14,7 +14,7 @@ public class CalculationServiceImpl extends BSkeleton_CalculationService {
 	@Override
 	public int computeSimpleChecksum(List<InputStream> streams) throws RemoteException {
 		if (streams == null) throw new IllegalArgumentException("Parameter streams must not be null");
-		int sum = 0;
+		int sum = 1;
 		try {
 			for (InputStream is : streams) {
 				sum = computeChecksum(sum, is);
@@ -30,8 +30,7 @@ public class CalculationServiceImpl extends BSkeleton_CalculationService {
 		try {
 			int b = 0;
 			while ((b = is.read()) != -1) {
-				sum ^= b;
-				sum <<= 1;
+				sum = 31 * sum + b;
 			}
 		}
 		finally {

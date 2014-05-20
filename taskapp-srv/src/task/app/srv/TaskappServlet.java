@@ -9,7 +9,6 @@ import javax.servlet.http.HttpSession;
 import byps.BApiDescriptor;
 import byps.BException;
 import byps.BExceptionC;
-import byps.BServerRegistry;
 import byps.http.HConfig;
 import byps.http.HConfigImpl;
 import byps.http.HHttpServlet;
@@ -22,9 +21,12 @@ import byps.http.HSession;
 
 		// mandatory: must be true
 		asyncSupported = true,
+		
+		// load when webapp starts
+		loadOnStartup = 1,
 
 		// mandatory: server URL pattern
-		urlPatterns = { "/taskapp" }
+		urlPatterns = { "/taskapp", "/taskappauth/auth" }
 )
 public class TaskappServlet extends HHttpServlet {
 	private static final long serialVersionUID = 1L;

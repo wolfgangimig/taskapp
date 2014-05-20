@@ -63,7 +63,7 @@ public class TaskappMain {
 	}
 
 	private static void calc(BClient_Taskapp bclient) throws RemoteException, InterruptedException {
-		JFrame frame = new JFrame();
+		JFrame frame = new JFrame("Calculation Service");
 		try {
 			CalculationServiceImpl calc = new CalculationServiceImpl();
 			bclient.addRemote(calc);

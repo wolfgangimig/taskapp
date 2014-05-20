@@ -110,12 +110,15 @@ public class TaskServiceImpl extends BSkeleton_TaskService {
 			for (InputStream is : istreams) {
 				BContentStream ns;
 				try {
-					ns = ((BContentStream)is).materialize();
-					nstreams.add(ns);
+					ns = ((BContentStream)is).cloneStream();
 				} catch (IOException e) {
-					throw new RemoteException("Failed to clone stream.", e);
+					try {
+						ns = ((BContentStream)is).materialize();
+					} catch (IOException e1) {
+						throw new BException(BExceptionC.IOERROR, "Cannot materialize stream.");
+					}
 				}
-				
+				nstreams.add(ns);
 			}
 		}
 		
