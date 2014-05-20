@@ -540,20 +540,8 @@ void BStub_CalculationService::computeSimpleChecksum(const byps::PVectorInputStr
 
 // checkpoint byps.gen.cpp.GenRemoteStub:224
 namespace task { namespace app { 
-void BSerializer_1984352081(BIO& bio, POBJECT& , PSerializable& pObjS, void* ){
-	BSerializable* p = pObjS.get();
-	if (bio.is_loading) {
-		if (p) return;
-		BTargetId targetId;
-		bio & targetId;
-		PTransport transport(new BTransport(*bio.transport, targetId));
-		pObjS = PSerializable(new task::app::BStub_CalculationService(transport));
-	}
-	else {
-		BRemote* r = dynamic_cast<BRemote*>(p);
-		BTargetId targetId = r->BRemote_getTargetId();
-		bio & targetId;
-	}
+void BSerializer_1984352081(BIO& bio, POBJECT& pObj, PSerializable& pObjS, void* reserved){
+	BSerializer_16_Template<task::app::BStub_CalculationService, 1984352081>(bio, pObj, pObjS, reserved);
 }
 }}
 
@@ -598,20 +586,8 @@ void BStub_TaskNotify::receiveTask(const PTaskInfo& task, ::std::function< void 
 
 // checkpoint byps.gen.cpp.GenRemoteStub:224
 namespace task { namespace app { 
-void BSerializer_265418285(BIO& bio, POBJECT& , PSerializable& pObjS, void* ){
-	BSerializable* p = pObjS.get();
-	if (bio.is_loading) {
-		if (p) return;
-		BTargetId targetId;
-		bio & targetId;
-		PTransport transport(new BTransport(*bio.transport, targetId));
-		pObjS = PSerializable(new task::app::BStub_TaskNotify(transport));
-	}
-	else {
-		BRemote* r = dynamic_cast<BRemote*>(p);
-		BTargetId targetId = r->BRemote_getTargetId();
-		bio & targetId;
-	}
+void BSerializer_265418285(BIO& bio, POBJECT& pObj, PSerializable& pObjS, void* reserved){
+	BSerializer_16_Template<task::app::BStub_TaskNotify, 265418285>(bio, pObj, pObjS, reserved);
 }
 }}
 
@@ -699,20 +675,8 @@ void BStub_TaskService::getTaskAttachments(int32_t taskId, ::std::function< void
 
 // checkpoint byps.gen.cpp.GenRemoteStub:224
 namespace task { namespace app { 
-void BSerializer_216769899(BIO& bio, POBJECT& , PSerializable& pObjS, void* ){
-	BSerializable* p = pObjS.get();
-	if (bio.is_loading) {
-		if (p) return;
-		BTargetId targetId;
-		bio & targetId;
-		PTransport transport(new BTransport(*bio.transport, targetId));
-		pObjS = PSerializable(new task::app::BStub_TaskService(transport));
-	}
-	else {
-		BRemote* r = dynamic_cast<BRemote*>(p);
-		BTargetId targetId = r->BRemote_getTargetId();
-		bio & targetId;
-	}
+void BSerializer_216769899(BIO& bio, POBJECT& pObj, PSerializable& pObjS, void* reserved){
+	BSerializer_16_Template<task::app::BStub_TaskService, 216769899>(bio, pObj, pObjS, reserved);
 }
 }}
 
